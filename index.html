@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>交通事故案件数字化管理系统</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #1d4ed8;
+      --blue-dark: #1e40af;
+      --blue-light: #dbeafe;
+      --amber: #f59e0b;
+      --amber-light: #fef3c7;
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --red: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --white: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Page container */
+    .page {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 20px 60px;
+      position: relative;
+    }
+
+    .page-content {
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Navigation dots */
+    .nav-dots {
+      position: fixed;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .nav-dot.active {
+      background: var(--blue);
+      transform: scale(1.4);
+    }
+
+    .page-1 .nav-dot,
+    .page-3 .nav-dot {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .page-1 .nav-dot.active,
+    .page-3 .nav-dot.active {
+      background: var(--amber);
+    }
+
+    /* Page 1: Hero */
+    .page-1 {
+      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
+      color: var(--white);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    h1 {
+      font-size: 36px;
+      line-height: 1.2;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      opacity: 0.92;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .trust-badges {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .trust-item {
+      text-align: center;
+    }
+
+    .trust-number {
+      font-size: 28px;
+      font-weight: 800;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .trust-label {
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* Page 2: Pain Points */
+    .page-2 {
+      background: var(--gray-50);
+    }
+
+    .section-label {
+      display: inline-block;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 28px;
+      color: var(--gray-800);
+    }
+
+    .pain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pain-item {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 18px 18px 18px 58px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid var(--gray-100);
+    }
+
+    .pain-icon {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: #fee2e2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .pain-item h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--gray-800);
+    }
+
+    .pain-item p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* Page 3: Solution */
+    .page-3 {
+      background: linear-gradient(165deg, #0f172a 0%, #1e3a8a 100%);
+      color: var(--white);
+    }
+
+    .page-3 h2 {
+      color: var(--white);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .feature-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .feature-box .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .feature-box h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .feature-box p {
+      font-size: 12px;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+
+    .highlight-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+
+    .chat-line {
+      background: rgba(255,255,255,0.12);
+      border-radius: 16px 16px 16px 4px;
+      padding: 12px 16px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .chat-line.reply {
+      background: rgba(16, 185, 129, 0.25);
+      border-radius: 16px 16px 4px 16px;
+      margin-left: 24px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-around;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .result-item {
+      text-align: center;
+    }
+
+    .result-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--amber);
+    }
+
+    .result-label {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint svg {
+      width: 24px;
+      height: 24px;
+      margin-top: 4px;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(8px); }
+      60% { transform: translateX(-50%) translateY(4px); }
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 80px 40px;
+      }
+
+      .page-content {
+        max-width: 640px;
+      }
+
+      h1 {
+        font-size: 52px;
+      }
+
+      h2 {
+        font-size: 38px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation dots -->
+  <div class="nav-dots">
+    <div class="nav-dot active" data-page="0"></div>
+    <div class="nav-dot" data-page="1"></div>
+    <div class="nav-dot" data-page="2"></div>
+  </div>
+
+  <!-- Page 1: Hero -->
+  <section class="page page-1" id="page1">
+    <div class="page-content">
+      <div class="badge">交通事故案件专属</div>
+      <h1>少漏事<br>少填表<br>多办案</h1>
+      <p class="subtitle">专为办理交通事故案件的律所打造。深度融合飞书与 AI，自动提醒、自动识别事故认定书、自动计算赔偿、自动生成起诉状。</p>
+
+      <div class="trust-badges">
+        <div class="trust-item">
+          <span class="trust-number">13</span>
+          <span class="trust-label">类节点提醒</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">70%</span>
+          <span class="trust-label">少填文书</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">0</span>
+          <span class="trust-label">遗漏容忍</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>下滑查看痛点</span>
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Page 2: Pain Points -->
+  <section class="page page-2" id="page2">
+    <div class="page-content">
+      <div class="section-label">律所痛点</div>
+      <h2>交通事故案件多，Excel 管不住了</h2>
+
+      <div class="pain-list">
+        <div class="pain-item">
+          <div class="pain-icon">⏰</div>
+          <h3>关键节点总遗漏</h3>
+          <p>事故认定书跟进、鉴定报告到期、上诉期截止没人提醒，一个疏忽就是执业风险。</p>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">📞</div>
+          <h3>当事人反复问进度</h3>
+          <p>「案子到哪了」「还要多久开庭」，律师和助理每天被大量重复电话打断。</p>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">📝</div>
+          <h3>起诉状反复手写</h3>
+          <p>民事起诉状、所函、授权委托书逐份手工填写，格式不统一还容易出错。</p>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">🧮</div>
+          <h3>赔偿计算耗时间</h3>
+          <p>残疾赔偿金、护理费、误工费、精神损害抚慰金等项目计算复杂，标准更新易出错。</p>
+        </div>
+        <div class="pain-item">
+          <div class="pain-icon">📎</div>
+          <h3>材料散落难找</h3>
+          <p>事故认定书、鉴定报告、保单、判决书存在不同地方，急用时翻半天。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 3: Solution -->
+  <section class="page page-3" id="page3">
+    <div class="page-content">
+      <div class="section-label" style="color: var(--amber);">解决方案</div>
+      <h2>一个系统，管好交通事故全案</h2>
+
+      <div class="feature-grid">
+        <div class="feature-box">
+          <span class="icon">⏰</span>
+          <h3>自动提醒</h3>
+          <p>13 类关键节点飞书提醒</p>
+        </div>
+        <div class="feature-box">
+          <span class="icon">🔍</span>
+          <h3>智能识别</h3>
+          <p>事故认定书 OCR 识别</p>
+        </div>
+        <div class="feature-box">
+          <span class="icon">🧮</span>
+          <h3>赔偿计算</h3>
+          <p>按标准自动算赔偿</p>
+        </div>
+        <div class="feature-box">
+          <span class="icon">📝</span>
+          <h3>文书生成</h3>
+          <p>起诉状所函自动生成</p>
+        </div>
+        <div class="feature-box">
+          <span class="icon">📅</span>
+          <h3>日程同步</h3>
+          <p>开庭自动进飞书日历</p>
+        </div>
+        <div class="feature-box">
+          <span class="icon">💬</span>
+          <h3>自然语言</h3>
+          <p>飞书里说话就能办公</p>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="chat-line">张三的案件事故认定书拿到了，推进到鉴定阶段</div>
+        <div class="chat-line reply">✅ 已确认推进<br>当前：等事故认定书 → 个人鉴定<br>已创建鉴定前 7 天提醒</div>
+        <div class="result-row">
+          <div class="result-item">
+            <div class="result-number">70%</div>
+            <div class="result-label">减少文书填写</div>
+          </div>
+          <div class="result-item">
+            <div class="result-number">90%</div>
+            <div class="result-label">降低遗漏风险</div>
+          </div>
+          <div class="result-item">
+            <div class="result-number">50%</div>
+            <div class="result-label">减少客户来电</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Update nav dots on scroll
+    const pages = document.querySelectorAll('.page');
+    const dots = document.querySelectorAll('.nav-dot');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(pages).indexOf(entry.target);
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    pages.forEach(page => observer.observe(page));
+
+    // Nav dot click
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        pages[index].scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
