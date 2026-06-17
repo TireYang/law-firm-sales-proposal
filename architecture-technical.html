@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>技术架构图 — 律所数字化系统</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #1d4ed8;
+      --blue-dark: #1e40af;
+      --blue-light: #dbeafe;
+      --amber: #f59e0b;
+      --amber-light: #fef3c7;
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --purple: #8b5cf6;
+      --purple-light: #ede9fe;
+      --red: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --white: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--gray-800);
+      background: var(--gray-50);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-100);
+      height: 56px;
+    }
+
+    .top-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gray-800);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 8px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .nav-link.active {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .nav-more {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--blue-light);
+      transition: all 0.2s;
+    }
+
+    .nav-more:hover {
+      background: var(--blue-light);
+    }
+
+    .nav-menu-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0;
+    }
+
+    .nav-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--gray-800);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .nav-menu-btn.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-menu-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-menu-btn.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-drawer {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 12px 20px 20px;
+      z-index: 199;
+      transform: translateY(-120%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .nav-drawer.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-drawer .nav-link {
+      display: block;
+      padding: 14px 16px;
+      font-size: 16px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+      .nav-menu-btn {
+        display: none;
+      }
+      .nav-drawer {
+        display: none;
+      }
+    }
+
+    .page {
+      min-height: 100vh;
+      width: 100%;
+      padding: 60px 20px 80px;
+      position: relative;
+    }
+
+    .page-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
+      color: var(--white);
+      padding: 60px 20px 80px;
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.92;
+      max-width: 720px;
+      line-height: 1.7;
+    }
+
+    /* Section */
+    .section {
+      margin-top: 48px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--gray-800);
+    }
+
+    .section-desc {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    /* Architecture diagram */
+    .arch-diagram {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px 20px;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .arch-layer {
+      margin-bottom: 24px;
+    }
+
+    .arch-layer:last-child {
+      margin-bottom: 0;
+    }
+
+    .arch-layer-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .arch-layer-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .arch-layer-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    .arch-layer-tech {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .arch-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .arch-box {
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+      border: 1px solid var(--gray-200);
+      background: var(--gray-50);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .arch-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .arch-box.client { background: var(--blue-light); border-color: #bfdbfe; }
+    .arch-box.ai { background: var(--purple-light); border-color: #ddd6fe; }
+    .arch-box.service { background: #fff7ed; border-color: #fed7aa; }
+    .arch-box.data { background: #f0fdf4; border-color: #bbf7d0; }
+    .arch-box.external { background: #f8fafc; border-color: var(--gray-200); }
+
+    .arch-box-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--gray-800);
+    }
+
+    .arch-box-desc {
+      font-size: 11px;
+      color: var(--gray-600);
+      line-height: 1.4;
+    }
+
+    /* Arrow between layers */
+    .layer-arrow {
+      display: flex;
+      justify-content: center;
+      margin: 12px 0;
+      color: var(--gray-400);
+      font-size: 18px;
+    }
+
+    /* Data flow */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .flow-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .flow-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--gray-800);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow-card ol {
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.8;
+    }
+
+    .flow-card li {
+      margin-bottom: 4px;
+    }
+
+    .flow-card code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+      font-size: 11px;
+      color: var(--gray-800);
+    }
+
+    /* Tech stack table */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      font-size: 13px;
+    }
+
+    .tech-table th,
+    .tech-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .tech-table th {
+      background: var(--gray-100);
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    .tech-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tech-table td:first-child {
+      font-weight: 600;
+      color: var(--gray-800);
+      width: 120px;
+    }
+
+    .tech-table code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+      font-size: 11px;
+    }
+
+    /* Auth diagram */
+    .auth-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .auth-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .auth-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--gray-800);
+    }
+
+    .auth-card p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .auth-card code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+      font-size: 11px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-600);
+      font-size: 13px;
+    }
+
+    .cta-section {
+      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
+      color: var(--white);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .cta-section-content {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      color: var(--white);
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 15px;
+      opacity: 0.92;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .cta-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .cta-link {
+      display: inline-block;
+      background: var(--white);
+      color: var(--blue);
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .cta-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .cta-link-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: none;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 42px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .cta-section h2 {
+        font-size: 34px;
+      }
+
+      .cta-links {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .arch-diagram {
+        padding: 36px;
+      }
+
+      .arch-boxes {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+
+      .flow-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .auth-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top navigation -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="index.html" class="nav-brand">交通事故案件数字化管理</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="architecture-sales.html" class="nav-link">系统架构</a>
+        <a href="architecture-technical.html" class="nav-link active">技术架构</a>
+        <a href="traffic-accident-workflow.html" class="nav-link">办案流程</a>
+        <a href="architecture-sales.html" class="nav-more">系统架构 →</a>
+      </div>
+      <button class="nav-menu-btn" aria-label="打开菜单" onclick="toggleNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html" class="nav-link">首页</a>
+    <a href="architecture-sales.html" class="nav-link">系统架构</a>
+    <a href="architecture-technical.html" class="nav-link active">技术架构</a>
+    <a href="traffic-accident-workflow.html" class="nav-link">办案流程</a>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div class="badge">技术架构说明</div>
+      <h1>律所数字化系统 — 技术架构</h1>
+      <p class="subtitle">模块化单体 + 独立 AI/飞书网关 + 清晰数据分层。前端 React 18，后端 NestJS + TypeORM，AI 通过独立 Hermes Agent 服务接入，飞书通过 Python WebSocket Consumer 接入。</p>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-content">
+      <!-- Architecture Diagram -->
+      <section class="section">
+        <h2 class="section-title">整体架构分层</h2>
+        <p class="section-desc">系统按职责分为五层：客户端/接入层、AI 与网关层、业务服务层、数据持久层、外部平台层。</p>
+
+        <div class="arch-diagram">
+          <!-- Layer 1 -->
+          <div class="arch-layer">
+            <div class="arch-layer-header">
+              <div class="arch-layer-number">1</div>
+              <div class="arch-layer-name">客户端 / 接入层</div>
+              <div class="arch-layer-tech">React 18 · Vite · Ant Design 5</div>
+            </div>
+            <div class="arch-boxes">
+              <div class="arch-box client">
+                <div class="arch-box-title">Web 管理后台</div>
+                <div class="arch-box-desc">React + TypeScript + Vite + Ant Design 5 + Tailwind</div>
+              </div>
+              <div class="arch-box client">
+                <div class="arch-box-title">Agent Chat</div>
+                <div class="arch-box-desc">Web Socket.IO 实时对话入口 /agent-hub</div>
+              </div>
+              <div class="arch-box external">
+                <div class="arch-box-title">飞书 IM</div>
+                <div class="arch-box-desc">律师通过飞书发文字/文件/点卡片</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-arrow">↓</div>
+
+          <!-- Layer 2 -->
+          <div class="arch-layer">
+            <div class="arch-layer-header">
+              <div class="arch-layer-number">2</div>
+              <div class="arch-layer-name">AI 与网关层</div>
+              <div class="arch-layer-tech">Python · lark-oapi · Socket.IO</div>
+            </div>
+            <div class="arch-boxes">
+              <div class="arch-box ai">
+                <div class="arch-box-title">Hermes Agent</div>
+                <div class="arch-box-desc">LLM 意图识别、多轮对话、调用 law-cli</div>
+              </div>
+              <div class="arch-box ai">
+                <div class="arch-box-title">FeishuConsumer</div>
+                <div class="arch-box-desc">Python WebSocket 长连接，分发飞书消息</div>
+              </div>
+              <div class="arch-box ai">
+                <div class="arch-box-title">BackendConsumer</div>
+                <div class="arch-box-desc">Socket.IO Consumer，连接后端与 Agent</div>
+              </div>
+              <div class="arch-box ai">
+                <div class="arch-box-title">AgentChat Gateway</div>
+                <div class="arch-box-desc">NestJS WebSocket 网关 /agent-hub</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-arrow">↓</div>
+
+          <!-- Layer 3 -->
+          <div class="arch-layer">
+            <div class="arch-layer-header">
+              <div class="arch-layer-number">3</div>
+              <div class="arch-layer-name">业务服务层（NestJS 模块化单体）</div>
+              <div class="arch-layer-tech">NestJS 11 · TypeScript 4.9 · TypeORM 0.3</div>
+            </div>
+            <div class="arch-boxes">
+              <div class="arch-box service">
+                <div class="arch-box-title">CaseModule</div>
+                <div class="arch-box-desc">案件 CRUD、阶段推进、时间轴</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">ReminderModule</div>
+                <div class="arch-box-desc">提醒规则、Redis ZSET 延迟队列</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">FileModule</div>
+                <div class="arch-box-desc">坚果云 WebDAV 上传/下载/版本</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">DocumentModule</div>
+                <div class="arch-box-desc">docxtemplater 文书生成、PDF 解析</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">DamageStandard</div>
+                <div class="arch-box-desc">赔偿标准、损失计算 API</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">AuthModule</div>
+                <div class="arch-box-desc">JWT + RBAC 权限码</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">CliModule</div>
+                <div class="arch-box-desc">x-cli-token 鉴权 CLI 入口</div>
+              </div>
+              <div class="arch-box service">
+                <div class="arch-box-title">AgentModule</div>
+                <div class="arch-box-desc">飞书 Webhook、卡片动作、消息推送</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-arrow">↓</div>
+
+          <!-- Layer 4 -->
+          <div class="arch-layer">
+            <div class="arch-layer-header">
+              <div class="arch-layer-number">4</div>
+              <div class="arch-layer-name">数据持久层</div>
+              <div class="arch-layer-tech">MySQL · Redis · WebDAV</div>
+            </div>
+            <div class="arch-boxes">
+              <div class="arch-box data">
+                <div class="arch-box-title">MySQL 8</div>
+                <div class="arch-box-desc">业务数据、RBAC、审计日志、Agent 会话</div>
+              </div>
+              <div class="arch-box data">
+                <div class="arch-box-title">Redis 7</div>
+                <div class="arch-box-desc">缓存、会话、延迟队列、飞书暂存</div>
+              </div>
+              <div class="arch-box data">
+                <div class="arch-box-title">坚果云 WebDAV</div>
+                <div class="arch-box-desc">案件文件存储与版本归档</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layer-arrow">↔</div>
+
+          <!-- Layer 5 -->
+          <div class="arch-layer">
+            <div class="arch-layer-header">
+              <div class="arch-layer-number">5</div>
+              <div class="arch-layer-name">外部平台</div>
+              <div class="arch-layer-tech">Webhook · Open API</div>
+            </div>
+            <div class="arch-boxes">
+              <div class="arch-box external">
+                <div class="arch-box-title">飞书开放平台</div>
+                <div class="arch-box-desc">WebSocket + HTTP 事件订阅 + 消息 API</div>
+              </div>
+              <div class="arch-box external">
+                <div class="arch-box-title">企业微信</div>
+                <div class="arch-box-desc">Webhook 基础入口（AI 链路未完整落地）</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Flow -->
+      <section class="section">
+        <h2 class="section-title">关键数据流</h2>
+        <p class="section-desc">基于当前代码实现的主要交互路径，非目标规划。</p>
+
+        <div class="flow-grid">
+          <div class="flow-card">
+            <h3>📝 文本消息流（飞书）</h3>
+            <ol>
+              <li>用户在飞书发文本</li>
+              <li><code>FeishuConsumer</code> 通过 WebSocket 接收</li>
+              <li>调用 <code>Hermes Agent /v1/responses</code></li>
+              <li>Agent 调用 <code>law-cli</code> → 后端 <code>/api/v1/cli/*</code></li>
+              <li>读操作直接返回文本；写操作发送确认卡片</li>
+            </ol>
+          </div>
+
+          <div class="flow-card">
+            <h3>📎 文件消息流（飞书）</h3>
+            <ol>
+              <li>用户上传文件到飞书</li>
+              <li><code>FileUploadHandler</code> 本地下载</li>
+              <li>Hermes 识别文件类型与当事人</li>
+              <li>POST <code>/cli/feishu/file-intent</code></li>
+              <li>Backend 返回上传成功/补信息/选案件</li>
+            </ol>
+          </div>
+
+          <div class="flow-card">
+            <h3>✅ 写操作确认流</h3>
+            <ol>
+              <li>Agent 调用 <code>case create/update/stage advance</code></li>
+              <li>CLI 返回 <code>pending: true</code></li>
+              <li>Backend 发送确认卡片到飞书</li>
+              <li>用户点击确认 → <code>/webhook/feishu/card-action</code></li>
+              <li><code>CardActionHandler</code> 执行实际写操作</li>
+            </ol>
+          </div>
+
+          <div class="flow-card">
+            <h3>⏰ 提醒推送流</h3>
+            <ol>
+              <li><code>ReminderTriggerService</code> Cron 扫描</li>
+              <li>查询 <code>case_reminders</code> pending 状态</li>
+              <li><code>ReminderDispatchService</code> 按渠道分组</li>
+              <li>飞书通道调用 <code>FeishuService.sendMessage()</code></li>
+              <li>用户点击卡片按钮标记已处理/忽略</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Auth -->
+      <section class="section">
+        <h2 class="section-title">鉴权体系</h2>
+        <p class="section-desc">不同入口采用不同的认证方式，CLI 通道按平台区分权限。</p>
+
+        <div class="auth-grid">
+          <div class="auth-card">
+            <h4>Web UI</h4>
+            <p>JWT Bearer → <code>AuthGuard</code> → <code>PermissionGuard(@RequirePermissions)</code> → Controller</p>
+          </div>
+          <div class="auth-card">
+            <h4>Agent Chat</h4>
+            <p>JWT Bearer → Gateway 鉴权 → Socket.IO <code>/agent-hub</code></p>
+          </div>
+          <div class="auth-card">
+            <h4>CLI / 飞书</h4>
+            <p><code>x-cli-token: fs_xxx</code> → <code>CliAuthGuard</code> + <code>x-cli-user-id</code></p>
+          </div>
+          <div class="auth-card">
+            <h4>CLI / 企微</h4>
+            <p><code>x-cli-token: wx_xxx</code> → 只读权限</p>
+          </div>
+          <div class="auth-card">
+            <h4>CLI / Web JWT</h4>
+            <p><code>x-cli-token: jwt_xxx</code> → 按 RBAC 角色权限</p>
+          </div>
+          <div class="auth-card">
+            <h4>BackendConsumer</h4>
+            <p><code>Authorization: Bearer {BACKEND_WS_TOKEN}</code> → Gateway Consumer 鉴权</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack -->
+      <section class="section">
+        <h2 class="section-title">技术栈清单</h2>
+        <p class="section-desc">当前代码实际采用的技术组件与版本。</p>
+
+        <table class="tech-table">
+          <thead>
+            <tr>
+              <th>层级</th>
+              <th>组件</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>前端</td>
+              <td>React 18 + TypeScript + Vite</td>
+              <td>Ant Design 5、Tailwind CSS、Zustand、TanStack Query v5</td>
+            </tr>
+            <tr>
+              <td>后端</td>
+              <td>NestJS 11 + TypeScript 4.9.5</td>
+              <td>模块化单体，REST 前缀 <code>/api/v1</code></td>
+            </tr>
+            <tr>
+              <td>数据库</td>
+              <td>MySQL 8.0 + TypeORM 0.3.28</td>
+              <td>使用 Migration，生产 <code>synchronize: false</code></td>
+            </tr>
+            <tr>
+              <td>缓存/队列</td>
+              <td>Redis 7 (ioredis)</td>
+              <td>会话、ZSET 延迟队列、飞书 pending 状态</td>
+            </tr>
+            <tr>
+              <td>实时通信</td>
+              <td>Socket.IO 4.x</td>
+              <td><code>/agent-hub</code> 网关，支持前端与 Consumer</td>
+            </tr>
+            <tr>
+              <td>文件存储</td>
+              <td>坚果云 WebDAV</td>
+              <td>上传、下载、版本归档、远程删除</td>
+            </tr>
+            <tr>
+              <td>文档生成</td>
+              <td>docxtemplater + pizzip</td>
+              <td>起诉状、所函等文书模板生成</td>
+            </tr>
+            <tr>
+              <td>AI 网关</td>
+              <td>Python + lark-oapi</td>
+              <td>FeishuConsumer、FileUploadHandler、Hermes 客户端</td>
+            </tr>
+            <tr>
+              <td>部署</td>
+              <td>Docker Compose + Nginx</td>
+              <td>开发/生产脚本位于 <code>devops/scripts</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Notes -->
+      <section class="section">
+        <h2 class="section-title">架构决策说明</h2>
+        <p class="section-desc">基于当前实现的真实决策，非早期规划文档。</p>
+
+        <div class="flow-grid">
+          <div class="flow-card">
+            <h3>为什么选择模块化单体？</h3>
+            <ol>
+              <li>年案件量 300-500 件规模，单机足以支撑</li>
+              <li>模块间通过 Service 注入解耦，保留拆分独立服务的可能</li>
+              <li>降低运维复杂度，减少分布式事务成本</li>
+            </ol>
+          </div>
+
+          <div class="flow-card">
+            <h3>为什么 AI 走独立服务？</h3>
+            <ol>
+              <li>Hermes Agent 独立于后端，通过 Socket.IO / HTTP 与后端通信</li>
+              <li>飞书消息由 FeishuConsumer 直接调 Agent，Web 消息由 BackendConsumer 调 Agent</li>
+              <li>模型迭代与业务后端升级互不阻塞</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <section class="cta-section">
+    <div class="cta-section-content">
+      <h2>技术架构已就绪，业务价值更清晰</h2>
+      <p>了解完技术实现后，可以回到首页查看整体方案，或查看系统如何嵌入真实办案流程。</p>
+      <div class="cta-links">
+        <a href="index.html" class="cta-link">返回首页看整体方案</a>
+        <a href="traffic-accident-workflow.html" class="cta-link cta-link-outline">查看交通事故办案流程</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    律所数字化系统 · 技术架构说明 
+  </footer>
+
+  <script>
+    function toggleNav() {
+      const btn = document.querySelector('.nav-menu-btn');
+      const drawer = document.getElementById('navDrawer');
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-drawer .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggleNav();
+      });
+    });
+  </script>
+</body>
+</html>
