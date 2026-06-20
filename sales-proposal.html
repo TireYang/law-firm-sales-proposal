@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>律所数字化系统 — 销售方案</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-light: #dbeafe;
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --success: #059669;
+      --success-light: #d1fae5;
+      --dark: #111827;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --white: #ffffff;
+      --radius: 16px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--dark);
+      line-height: 1.7;
+      background: var(--white);
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: var(--white);
+      padding: 80px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      opacity: 0.92;
+      margin-bottom: 32px;
+      max-width: 620px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--dark);
+    }
+
+    .btn-primary:hover {
+      background: #fbbf24;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Section common */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 56px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .section-desc {
+      font-size: 18px;
+      color: var(--gray-600);
+    }
+
+    /* Pain points */
+    .pain-points {
+      background: var(--gray-50);
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .pain-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s;
+    }
+
+    .pain-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .pain-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: #fee2e2;
+      color: #dc2626;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .pain-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .pain-card p {
+      color: var(--gray-600);
+      font-size: 15px;
+    }
+
+    /* Solution highlight */
+    .solution-highlight {
+      background: var(--white);
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--primary-light) 0%, #eff6ff 100%);
+      border-radius: var(--radius);
+      padding: 48px;
+      border: 1px solid #bfdbfe;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .highlight-content {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .highlight-content h2 {
+      font-size: 32px;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .highlight-content p {
+      font-size: 17px;
+      color: var(--gray-700);
+      margin-bottom: 24px;
+    }
+
+    .highlight-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-top: 6px;
+    }
+
+    .highlight-visual {
+      flex: 0 0 280px;
+      min-width: 280px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .chat-bubble {
+      background: var(--primary-light);
+      border-radius: 16px 16px 16px 4px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--gray-700);
+    }
+
+    .chat-bubble.reply {
+      background: var(--success-light);
+      border-radius: 16px 16px 4px 16px;
+      margin-left: 30px;
+    }
+
+    /* Features */
+    .features {
+      background: var(--gray-50);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--gray-600);
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      list-style: none;
+    }
+
+    .feature-list li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+      font-size: 14px;
+      color: var(--gray-700);
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* Comparison */
+    .comparison {
+      background: var(--white);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 18px 24px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .comparison-table th {
+      background: var(--dark);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background: var(--gray-50);
+    }
+
+    .comparison-table td:first-child {
+      font-weight: 600;
+      color: var(--dark);
+      width: 25%;
+    }
+
+    .comparison-table .check {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .comparison-table .cross {
+      color: #9ca3af;
+    }
+
+    /* ROI */
+    .roi {
+      background: linear-gradient(135deg, #064e3b 0%, var(--success) 100%);
+      color: var(--white);
+    }
+
+    .roi .section-tag,
+    .roi .section-title,
+    .roi .section-desc {
+      color: var(--white);
+    }
+
+    .roi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .roi-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .roi-card .number {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .roi-card .label {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* Scenarios */
+    .scenarios {
+      background: var(--gray-50);
+    }
+
+    .scenario-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .scenario-tab {
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .scenario-tab.active,
+    .scenario-tab:hover {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .scenario-content {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-200);
+    }
+
+    .scenario-item {
+      display: none;
+    }
+
+    .scenario-item.active {
+      display: block;
+    }
+
+    .scenario-item h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .scenario-item p {
+      color: var(--gray-700);
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .scenario-item ul {
+      padding-left: 20px;
+      color: var(--gray-700);
+    }
+
+    .scenario-item li {
+      margin-bottom: 10px;
+    }
+
+    /* Deployment */
+    .deployment {
+      background: var(--white);
+    }
+
+    .deploy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .deploy-card {
+      text-align: center;
+      padding: 32px 24px;
+      border-radius: var(--radius);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+    }
+
+    .deploy-step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto 16px;
+    }
+
+    .deploy-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .deploy-card p {
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      opacity: 0.92;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: var(--gray-200);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .section-title { font-size: 28px; }
+      .highlight-box { padding: 28px; }
+      .comparison-table th,
+      .comparison-table td { padding: 12px 16px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">专为中小型律所打造</div>
+        <h1>让律所从「Excel 作坊」<br>升级为数字化办案团队</h1>
+        <p class="hero-subtitle">交通事故 / 侵权 / 工伤案件全流程管理，深度融合飞书与 AI，自动提醒、自动算赔偿、自动生成文书，让律师少填表、少漏事、多办案。</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">预约产品演示</a>
+          <a href="#features" class="btn btn-secondary">查看核心功能</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pain-points" id="pain">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">律所真实痛点</div>
+        <h2 class="section-title">您的律所是否也面临这些困境？</h2>
+        <p class="section-desc">年办案 300-500 件的中小律所，长期依赖 Excel 和人工记忆，效率与风险并存。</p>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon">😰</div>
+          <h3>进度失控</h3>
+          <p>多人协作时 Excel 版本混乱，案件走到哪一步、谁负责、下一步该做什么，全靠口头和记忆。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">⏰</div>
+          <h3>关键节点遗漏</h3>
+          <p>上诉期、鉴定报告到期、开庭日期等关键时限没有系统提醒，一个疏忽就可能造成执业风险。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">📞</div>
+          <h3>客户沟通成本高</h3>
+          <p>当事人反复打电话问「案子到哪了」「还要多久」，律师和助理大量时间被重复沟通占用。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">📑</div>
+          <h3>文书重复劳动</h3>
+          <p>起诉状、所函、授权委托书等文书反复手工填写，格式不统一，容易出错。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🧮</div>
+          <h3>赔偿计算繁琐</h3>
+          <p>残疾赔偿金、被扶养人生活费、精神损害抚慰金等项目计算复杂，标准更新后容易用错。</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🏝️</div>
+          <h3>知识无法沉淀</h3>
+          <p>办案经验、法院联系人、赔偿标准只存在于老律师脑中，新人上手慢，离职即流失。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Highlight -->
+  <section class="solution-highlight">
+    <div class="container">
+      <div class="highlight-box">
+        <div class="highlight-content">
+          <div class="section-tag" style="text-align: left;">核心解决方案</div>
+          <h2>把飞书变成律所的「办案助手」</h2>
+          <p>律师不需要额外安装 App，在每天使用的飞书里，用自然语言就能查案件、推阶段、传文件、生成文书。系统后台自动完成提醒、计算、归档，让律师回归专业。</p>
+          <div class="highlight-stats">
+            <div class="stat-item">
+              <div class="stat-number">13</div>
+              <div class="stat-label">类关键节点提醒</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">0</div>
+              <div class="stat-label">遗漏容忍</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">1</div>
+              <div class="stat-label">次录入全端同步</div>
+            </div>
+          </div>
+        </div>
+        <div class="highlight-visual">
+          <div class="chat-bubble">王律师，张三的案件事故认定书拿到了，推进到鉴定阶段</div>
+          <div class="chat-bubble reply">✅ 已确认推进<br>当前：等事故认定书 → 个人鉴定<br>已为您创建鉴定前 7 天提醒</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">产品核心能力</div>
+        <h2 class="section-title">八大功能，覆盖办案全流程</h2>
+        <p class="section-desc">从事故接案到执行回款，每一个环节都有系统辅助，减少人工、降低风险、提升客户体验。</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: var(--primary-light);">⏰</div>
+          <h3>零遗漏自动提醒</h3>
+          <p>接案、等认定书、鉴定、调解、立案、开庭、判决、执行等 13 类关键节点自动生成飞书提醒。</p>
+          <ul class="feature-list">
+            <li>事故认定书 T+7 / T+15 跟进</li>
+            <li>开庭前 3 天、上诉期截止极高优先级</li>
+            <li>循环提醒直到律师标记「已处理」</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #ede9fe;">💬</div>
+          <h3>飞书自然语言交互</h3>
+          <p>律师在飞书里说话就能办公，AI 以「律师助理」身份协助，关键操作发送卡片确认。</p>
+          <ul class="feature-list">
+            <li>「张三的案子到哪一步了？」</li>
+            <li>「推进到鉴定阶段」</li>
+            <li>「帮我生成起诉状」</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #ccfbf1;">📎</div>
+          <h3>文件智能识别归档</h3>
+          <p>在飞书发送事故认定书、鉴定报告等文件，AI 自动识别类型、匹配当事人、归档到案件。</p>
+          <ul class="feature-list">
+            <li>自动识别 10+ 种文件类型</li>
+            <li>OCR 提取事故认定书关键信息</li>
+            <li>自动同步创建对方当事人和保险公司</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #fef3c7;">🧮</div>
+          <h3>赔偿金额自动计算</h3>
+          <p>导入地区赔偿标准后，系统根据伤残等级、责任比例、当事人信息自动计算赔偿清单。</p>
+          <ul class="feature-list">
+            <li>医疗费、护理费、误工费等 15+ 项目</li>
+            <li>按交强险 / 商业险 / 超出部分拆分</li>
+            <li>自动适用责任比例折算</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #d1fae5;">📝</div>
+          <h3>诉讼文书自动生成</h3>
+          <p>进入诉讼准备阶段，系统自动生成民事起诉状、所函、授权委托书等全套文书。</p>
+          <ul class="feature-list">
+            <li>基于案件数据自动填充</li>
+            <li>支持审批、驳回、重新生成</li>
+            <li>版本管理，可追溯修改</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #fce7f3;">📅</div>
+          <h3>开庭日程自动同步</h3>
+          <p>记录开庭、调解、鉴定日期后，自动创建飞书日历日程，并提前推送提醒。</p>
+          <ul class="feature-list">
+            <li>开庭前 3 天自动提醒</li>
+            <li>调解前 3 天、鉴定前 7 天提醒</li>
+            <li>阶段变更时自动更新日程</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #e0e7ff;">👥</div>
+          <h3>权限隔离与协作</h3>
+          <p>基于 RBAC 的细粒度权限，律师只看自己的案件，管理员可看全所，客户只能查自己的案子。</p>
+          <ul class="feature-list">
+            <li>主办律师 / 助理 / 内勤 / 管理员多角色</li>
+            <li>案件数据权限隔离</li>
+            <li>操作审计日志全程留痕</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: #ffedd5;">📚</div>
+          <h3>知识库沉淀</h3>
+          <p>赔偿标准、FAQ、法院联系人、办案经验统一入库，新人快速成长，经验不再随人流失。</p>
+          <ul class="feature-list">
+            <li>支持 Excel 导入赔偿标准</li>
+            <li>FAQ 与安抚话术管理</li>
+            <li>行业平均工资数据维护</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section class="comparison">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">效果对比</div>
+        <h2 class="section-title">用系统前后，办案效率差距有多大？</h2>
+      </div>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>对比维度</th>
+            <th>传统 Excel 管理</th>
+            <th>律所数字化系统</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>案件进度掌握</td>
+            <td class="cross">逐个打开 Excel，难以实时同步</td>
+            <td class="check">看板一目了然，当前阶段、超期天数自动标色</td>
+          </tr>
+          <tr>
+            <td>关键节点提醒</td>
+            <td class="cross">依赖个人记忆，容易遗漏</td>
+            <td class="check">13 类节点自动飞书提醒，紧急事项短信跟进</td>
+          </tr>
+          <tr>
+            <td>赔偿金额计算</td>
+            <td class="cross">人工按计算器，标准更新易出错</td>
+            <td class="check">导入标准后自动计算，含交强险/商业险拆分</td>
+          </tr>
+          <tr>
+            <td>诉讼文书准备</td>
+            <td class="cross">Word 模板手工填写，重复劳动多</td>
+            <td class="check">阶段推进后自动生成全套文书，审批即用</td>
+          </tr>
+          <tr>
+            <td>客户进度查询</td>
+            <td class="cross">反复电话沟通，占用律师时间</td>
+            <td class="check">当事人自助查询，AI 以律师助理身份回复</td>
+          </tr>
+          <tr>
+            <td>新人培养</td>
+            <td class="cross">靠老律师带教，周期长</td>
+            <td class="check">流程、标准、话术全部在线沉淀</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ROI -->
+  <section class="roi">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">投入产出</div>
+        <h2 class="section-title">数字化带来的可量化价值</h2>
+        <p class="section-desc">不仅是工具升级，更是律所运营效率与客户体验的整体提升。</p>
+      </div>
+      <div class="roi-grid">
+        <div class="roi-card">
+          <div class="number">70%</div>
+          <div class="label">减少文书重复填写时间</div>
+        </div>
+        <div class="roi-card">
+          <div class="number">90%</div>
+          <div class="label">降低关键节点遗漏风险</div>
+        </div>
+        <div class="roi-card">
+          <div class="number">50%</div>
+          <div class="label">减少客户重复咨询电话</div>
+        </div>
+        <div class="roi-card">
+          <div class="number">3×</div>
+          <div class="label">新人独立办案速度提升</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scenarios -->
+  <section class="scenarios">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">典型场景</div>
+        <h2 class="section-title">他们怎么用系统办好每一个案子？</h2>
+      </div>
+      <div class="scenario-tabs">
+        <div class="scenario-tab active" onclick="showScenario(0)">主办律师</div>
+        <div class="scenario-tab" onclick="showScenario(1)">律师助理</div>
+        <div class="scenario-tab" onclick="showScenario(2)">律所主任</div>
+        <div class="scenario-tab" onclick="showScenario(3)">内勤</div>
+      </div>
+      <div class="scenario-content">
+        <div class="scenario-item active">
+          <h3>主办律师：专注办案，不再被琐事打断</h3>
+          <p>王律师每天打开飞书就能看到当天待办提醒。当事人发来事故认定书，他在飞书里收到文件，系统自动识别并归档。诉讼准备阶段，起诉状、所函一键生成，他只需审批确认。开庭日期自动进入飞书日历，再也不用手动维护。</p>
+          <ul>
+            <li>早晨 5 分钟浏览今日飞书待办提醒</li>
+            <li>飞书里一句话推进案件阶段，卡片确认即可</li>
+            <li>系统自动生成文书，减少 70% 重复填写时间</li>
+          </ul>
+        </div>
+        <div class="scenario-item">
+          <h3>律师助理：清楚知道该做什么，材料好找</h3>
+          <p>助理小李负责的案子到了「等事故认定书」阶段，系统 T+7、T+15 自动提醒他跟进度。案件所有附件按类型归档在详情页，想找起诉状、鉴定报告、保单一目了然。赔偿计算有系统辅助，不需要再翻 Excel 查公式。</p>
+          <ul>
+            <li>每个阶段该做什么，飞书自动提醒</li>
+            <li>案件附件集中管理，支持版本追溯</li>
+            <li>赔偿清单自动计算，标准统一不出错</li>
+          </ul>
+        </div>
+        <div class="scenario-item">
+          <h3>律所主任：全所进度一目了然</h3>
+          <p>张主任通过管理后台查看全所案件看板，超期案件红色预警，律师工作量分布清晰。系统沉淀了赔偿标准、FAQ、法院联系人，新人培训周期大幅缩短。结案数据自动汇总，经营决策有数据支撑。</p>
+          <ul>
+            <li>全所案件看板，风险案件自动标红</li>
+            <li>知识库沉淀，降低对个别律师的依赖</li>
+            <li>收案量、结案率、回款情况实时统计</li>
+          </ul>
+        </div>
+        <div class="scenario-item">
+          <h3>内勤：批量录入，快速上手</h3>
+          <p>内勤小刘收到批量历史案件 Excel，使用系统导入功能一键预览、校验、执行，系统自动生成案件编号、阶段记录和提醒。日常新案件也可以通过飞书 Agent 自然语言录入，无需反复切换系统。</p>
+          <ul>
+            <li>Excel 批量导入历史案件</li>
+            <li>飞书自然语言录入新案件</li>
+            <li>自动编号、自动创建阶段和提醒</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deployment -->
+  <section class="deployment">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">落地部署</div>
+        <h2 class="section-title">轻量部署，快速上线</h2>
+        <p class="section-desc">无需购置昂贵服务器，无需组建技术团队，标准产品一周内即可投入使用。</p>
+      </div>
+      <div class="deploy-grid">
+        <div class="deploy-card">
+          <div class="deploy-step">1</div>
+          <h3>需求确认</h3>
+          <p>确认案件类型、阶段流程、提醒规则、权限角色等基础配置。</p>
+        </div>
+        <div class="deploy-card">
+          <div class="deploy-step">2</div>
+          <h3>环境部署</h3>
+          <p>Docker Compose 单机/双机部署，MySQL + Redis + 坚果云存储对接。</p>
+        </div>
+        <div class="deploy-card">
+          <div class="deploy-step">3</div>
+          <h3>数据初始化</h3>
+          <p>导入员工、客户、历史案件、地区赔偿标准等基础数据。</p>
+        </div>
+        <div class="deploy-card">
+          <div class="deploy-step">4</div>
+          <h3>飞书对接</h3>
+          <p>接入飞书机器人，律师绑定身份后即可在飞书使用全部功能。</p>
+        </div>
+        <div class="deploy-card">
+          <div class="deploy-step">5</div>
+          <h3>培训上线</h3>
+          <p>半天线上培训，律师、助理、内勤即可上手使用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="container">
+      <h2>让每一件案子都在掌控之中</h2>
+      <p>立即预约产品演示，了解您的律所如何通过数字化系统提升效率、降低风险、改善客户体验。</p>
+      <div class="hero-cta" style="justify-content: center;">
+        <a href="mailto:contact@example.com" class="btn btn-primary">预约产品演示</a>
+        <a href="tel:400-000-0000" class="btn btn-secondary">拨打咨询热线</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 律所数字化系统 · 面向中小型律师事务所的案件管理解决方案</p>
+    </div>
+  </footer>
+
+  <script>
+    function showScenario(index) {
+      const tabs = document.querySelectorAll('.scenario-tab');
+      const items = document.querySelectorAll('.scenario-item');
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('active', i === index);
+      });
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+    }
+  </script>
+</body>
+</html>

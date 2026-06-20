@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>交通事故案件数字化管理系统</title>
+  <title>律所数字化系统</title>
   <style>
     * {
       margin: 0;
@@ -36,9 +36,19 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       color: var(--gray-800);
       background: var(--white);
-      line-height: 1.7;
+      line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 88px 20px 60px;
+      position: relative;
     }
 
     /* Top navigation */
@@ -48,186 +58,95 @@
       left: 0;
       right: 0;
       z-index: 200;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--gray-100);
-      height: 56px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 12px 16px calc(12px + env(safe-area-inset-top));
+      padding-top: calc(12px + env(safe-area-inset-top));
     }
 
-    .top-nav-inner {
-      max-width: 1100px;
+    .top-nav-content {
+      max-width: 680px;
       margin: 0 auto;
-      padding: 0 20px;
-      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .nav-brand {
-      font-size: 16px;
+    .top-nav-logo {
+      font-size: 15px;
       font-weight: 800;
       color: var(--gray-800);
       text-decoration: none;
-      letter-spacing: -0.02em;
     }
 
-    .nav-links {
-      display: none;
-      gap: 8px;
-      align-items: center;
+    .top-nav-links {
+      display: flex;
+      gap: 6px;
     }
 
-    .nav-link {
-      font-size: 14px;
-      font-weight: 600;
+    .top-nav-link {
+      font-size: 13px;
       color: var(--gray-600);
       text-decoration: none;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 999px;
       transition: all 0.2s;
+      white-space: nowrap;
     }
 
-    .nav-link:hover {
-      color: var(--blue);
+    .top-nav-link:hover,
+    .top-nav-link:active {
       background: var(--blue-light);
-    }
-
-    .nav-link.active {
       color: var(--blue);
-      background: var(--blue-light);
     }
 
-    .nav-more {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--blue);
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--blue-light);
-      transition: all 0.2s;
-    }
-
-    .nav-more:hover {
-      background: var(--blue-light);
-    }
-
-    .nav-menu-btn {
-      width: 40px;
-      height: 40px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      padding: 0;
-    }
-
-    .nav-menu-btn span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--gray-800);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .nav-menu-btn.open span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .nav-menu-btn.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .nav-menu-btn.open span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    .nav-drawer {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--gray-100);
-      padding: 12px 20px 20px;
-      z-index: 199;
-      transform: translateY(-120%);
-      opacity: 0;
-      transition: all 0.3s ease;
-      pointer-events: none;
-    }
-
-    .nav-drawer.open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .nav-drawer .nav-link {
-      display: block;
-      padding: 14px 16px;
-      font-size: 16px;
-      border-radius: 12px;
-      margin-bottom: 6px;
-    }
-
-    @media (min-width: 768px) {
-      .nav-links {
-        display: flex;
-      }
-      .nav-menu-btn {
-        display: none;
-      }
-      .nav-drawer {
-        display: none;
-      }
-    }
-
-    /* Page container */
-    .page {
-      min-height: 100vh;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 20px 60px;
-      position: relative;
+    .top-nav-link.active {
+      background: var(--blue);
+      color: white;
     }
 
     .page-content {
-      max-width: 520px;
+      max-width: 480px;
       margin: 0 auto;
       width: 100%;
     }
 
-    .section-label {
-      display: inline-block;
-      color: var(--blue);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
+    .nav-dots {
+      position: fixed;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    h2 {
-      font-size: 28px;
-      font-weight: 800;
-      line-height: 1.25;
-      margin-bottom: 28px;
-      color: var(--gray-800);
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.2);
+      transition: all 0.3s;
     }
 
-    /* Page 1: Hero */
-    .page-1 {
-      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
-      color: var(--white);
+    .nav-dot.active {
+      background: var(--blue);
+      transform: scale(1.4);
+    }
+
+    .page-1 .nav-dot,
+    .page-3 .nav-dot,
+    .page-7 .nav-dot {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .page-1 .nav-dot.active,
+    .page-3 .nav-dot.active,
+    .page-7 .nav-dot.active {
+      background: var(--amber);
     }
 
     .badge {
@@ -241,117 +160,53 @@
       backdrop-filter: blur(4px);
     }
 
+    .badge-dark {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      border: 1px solid var(--blue-light);
+    }
+
     h1 {
-      font-size: 38px;
-      line-height: 1.15;
+      font-size: 36px;
+      line-height: 1.2;
       font-weight: 800;
       margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 28px;
+      color: var(--gray-800);
     }
 
     .subtitle {
       font-size: 17px;
       opacity: 0.92;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       line-height: 1.7;
     }
 
-    .trust-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 36px;
-    }
-
-    .trust-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .hero-visual {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 20px;
-      padding: 20px;
-      backdrop-filter: blur(8px);
-      margin-bottom: 24px;
-    }
-
-    .hero-card {
-      background: rgba(255,255,255,0.95);
-      border-radius: 14px;
-      padding: 14px 16px;
-      color: var(--gray-800);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-
-    .hero-card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .section-label {
+      display: inline-block;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       margin-bottom: 12px;
     }
 
-    .hero-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--blue-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    .hero-card-title {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .hero-card-status {
-      font-size: 11px;
-      color: var(--green);
-      font-weight: 600;
-    }
-
-    .hero-progress {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .hero-progress-step {
-      flex: 1;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--gray-100);
-      position: relative;
-    }
-
-    .hero-progress-step.done {
-      background: var(--green);
-    }
-
-    .hero-progress-step.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 60%;
-      border-radius: 999px;
-      background: var(--amber);
+    /* Page 1: Hero */
+    .page-1 {
+      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
+      color: var(--white);
     }
 
     .trust-badges {
       display: flex;
       justify-content: space-between;
+      margin-top: 36px;
       padding-top: 24px;
       border-top: 1px solid rgba(255,255,255,0.15);
     }
@@ -372,167 +227,301 @@
       opacity: 0.85;
     }
 
-    /* Page 2: Pain Points */
+    /* Page 2: Positioning */
     .page-2 {
       background: var(--gray-50);
     }
 
-    .pain-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .big-quote {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: var(--gray-800);
+      margin-bottom: 24px;
     }
 
-    .pain-item {
+    .big-quote span {
+      color: var(--blue);
+    }
+
+    .point-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .point-item {
       background: var(--white);
-      border-radius: 18px;
-      padding: 20px;
+      border-radius: 16px;
+      padding: 18px 18px 18px 58px;
       position: relative;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border: 1px solid var(--gray-100);
     }
 
-    .pain-header {
+    .point-icon {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--blue-light);
       display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 10px;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
     }
 
-    .pain-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: #fee2e2;
+    .point-item h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--gray-800);
+    }
+
+    .point-item p {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* Page 3: Architecture */
+    .page-3 {
+      background: linear-gradient(165deg, #0f172a 0%, #1e3a8a 100%);
+      color: var(--white);
+    }
+
+    .page-3 h2 {
+      color: var(--white);
+    }
+
+    .page-3 .section-label {
+      color: var(--amber);
+    }
+
+    .arch-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .arch-layer {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 18px 16px;
+      position: relative;
+      backdrop-filter: blur(4px);
+    }
+
+    .arch-layer::after {
+      content: "↓";
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 16px;
+    }
+
+    .arch-layer:last-child::after {
+      display: none;
+    }
+
+    .arch-layer-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .arch-layer-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .arch-layer p {
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.55;
+    }
+
+    .arch-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .arch-tag {
+      background: rgba(255,255,255,0.12);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+
+    /* Page 4: AI */
+    .page-4 {
+      background: var(--white);
+    }
+
+    .chat-card {
+      background: var(--gray-50);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 28px;
+      border: 1px solid var(--gray-100);
+    }
+
+    .chat-line {
+      background: var(--white);
+      border-radius: 16px 16px 16px 4px;
+      padding: 12px 16px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      line-height: 1.5;
+    }
+
+    .chat-line.reply {
+      background: var(--green-light);
+      border-radius: 16px 16px 4px 16px;
+      margin-left: 24px;
+      color: #065f46;
+    }
+
+    .ai-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .ai-feature {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    .ai-feature .icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .ai-feature h3 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .ai-feature p {
+      font-size: 11px;
+      color: var(--gray-600);
+      line-height: 1.4;
+    }
+
+    /* Page 5: Feishu */
+    .page-5 {
+      background: var(--gray-50);
+    }
+
+    .feishu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .feishu-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid var(--gray-100);
+      position: relative;
+      padding-left: 62px;
+    }
+
+    .feishu-icon {
+      position: absolute;
+      left: 18px;
+      top: 20px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--amber-light);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      flex-shrink: 0;
     }
 
-    .pain-item h3 {
-      font-size: 17px;
+    .feishu-card h3 {
+      font-size: 16px;
       margin-bottom: 4px;
-      color: var(--gray-800);
-      flex: 1;
     }
 
-    .pain-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 6px;
-      margin-top: 2px;
-    }
-
-    .pain-tag.risk {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
-
-    .pain-tag.cost {
-      background: var(--amber-light);
-      color: #92400e;
-    }
-
-    .pain-item p {
+    .feishu-card p {
       font-size: 14px;
       color: var(--gray-600);
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
-    .pain-transition {
-      margin-top: 28px;
-      padding: 18px 20px;
-      background: var(--blue-light);
-      border-radius: 16px;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--blue-dark);
-      text-align: center;
-    }
-
-    /* Page 3: Solution */
-    .page-3 {
+    /* Page 6: Microservices */
+    .page-6 {
       background: var(--white);
     }
 
-    .feature-grid {
+    .compare-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .compare-item {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 40px 1fr;
       gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .feature-box {
+      align-items: center;
       background: var(--gray-50);
+      border-radius: 18px;
+      padding: 18px 14px;
       border: 1px solid var(--gray-100);
-      border-radius: 16px;
-      padding: 18px 12px;
+    }
+
+    .compare-box {
       text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .feature-box:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    .compare-box.ours {
+      background: var(--green-light);
+      border-radius: 14px;
+      padding: 14px 10px;
     }
 
-    .feature-box .icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-      display: block;
+    .compare-box.old {
+      opacity: 0.6;
     }
 
-    .feature-box h3 {
-      font-size: 14px;
-      font-weight: 700;
+    .compare-box h4 {
+      font-size: 13px;
       margin-bottom: 4px;
     }
 
-    .feature-box .result {
-      font-size: 12px;
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    .compare-bar {
-      background: var(--gray-50);
-      border-radius: 18px;
-      padding: 20px;
-      border: 1px solid var(--gray-100);
-    }
-
-    .compare-row {
-      display: grid;
-      grid-template-columns: 1fr 36px 1fr;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .compare-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .compare-side {
-      font-size: 13px;
-      padding: 12px;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .compare-side.old {
-      background: var(--gray-100);
+    .compare-box p {
+      font-size: 11px;
       color: var(--gray-600);
-    }
-
-    .compare-side.new {
-      background: var(--green-light);
-      color: #065f46;
-      font-weight: 700;
+      line-height: 1.4;
     }
 
     .compare-vs {
@@ -542,169 +531,278 @@
       color: var(--gray-600);
     }
 
-    /* Page 4: Results */
-    .page-4 {
-      background: linear-gradient(165deg, #0f172a 0%, #1e3a8a 100%);
-      color: var(--white);
-    }
-
-    .page-4 h2 {
-      color: var(--white);
-    }
-
-    .result-grid {
+    .micro-benefits {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 28px;
     }
 
-    .result-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 22px 14px;
+    .micro-benefit {
       text-align: center;
-      backdrop-filter: blur(4px);
+      padding: 14px 8px;
+      background: var(--blue-light);
+      border-radius: 14px;
     }
 
-    .result-card .number {
-      font-size: 36px;
+    .micro-benefit .num {
+      font-size: 22px;
       font-weight: 800;
-      color: var(--amber);
+      color: var(--blue);
       display: block;
+    }
+
+    .micro-benefit .label {
+      font-size: 11px;
+      color: var(--gray-800);
+      margin-top: 2px;
+    }
+
+    /* Page 7: Mobile */
+    .page-7 {
+      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
+      color: var(--white);
+    }
+
+    .page-7 h2 {
+      color: var(--white);
+    }
+
+    .mobile-showcase {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .phone-frame {
+      width: 200px;
+      height: 360px;
+      border: 8px solid rgba(255,255,255,0.25);
+      border-radius: 32px;
+      padding: 12px 10px;
+      background: rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      border-radius: 22px;
+      overflow: hidden;
+      color: var(--gray-800);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-header {
+      font-size: 10px;
+      color: var(--gray-600);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .phone-msg {
+      background: var(--gray-100);
+      border-radius: 12px 12px 12px 4px;
+      padding: 8px 10px;
+      font-size: 11px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .phone-msg.reply {
+      background: var(--green-light);
+      border-radius: 12px 12px 4px 12px;
+      margin-left: 12px;
+      color: #065f46;
+    }
+
+    .phone-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .phone-card-title {
+      font-size: 10px;
+      font-weight: 700;
       margin-bottom: 6px;
     }
 
-    .result-card .label {
-      font-size: 13px;
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-
-    /* Page 5: Service Guarantee */
-    .page-5 {
-      background: var(--gray-50);
-    }
-
-    .guarantee-list {
+    .phone-card-row {
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .guarantee-card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid var(--gray-100);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .guarantee-card h3 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--gray-800);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .guarantee-card p {
-      font-size: 14px;
+      justify-content: space-between;
+      font-size: 9px;
       color: var(--gray-600);
-      line-height: 1.7;
-      margin-bottom: 16px;
+      margin-bottom: 4px;
     }
 
-    .guarantee-tags {
+    .phone-card-btns {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
+      margin-top: 8px;
     }
 
-    .guarantee-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 999px;
+    .phone-card-btn {
+      flex: 1;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 600;
     }
 
-    /* Page 6: Resources */
-    .page-6 {
-      background: var(--white);
+    .phone-card-btn.primary {
+      background: var(--blue);
+      color: var(--white);
     }
 
-    .resource-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .phone-card-btn.default {
+      background: var(--gray-100);
+      color: var(--gray-800);
     }
 
-    .resource-card {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-100);
-      border-radius: 18px;
-      padding: 22px;
-      text-decoration: none;
-      color: inherit;
+    .mobile-points {
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      gap: 12px;
     }
 
-    .resource-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      border-color: var(--blue-light);
-    }
-
-    .resource-header {
+    .mobile-point {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 14px;
     }
 
-    .resource-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--blue-light);
-      color: var(--blue);
+    .mobile-point-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 16px;
       flex-shrink: 0;
     }
 
-    .resource-card h3 {
-      font-size: 17px;
+    .mobile-point h3 {
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .mobile-point p {
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    /* Page 8: CTA */
+    .page-8 {
+      background: var(--gray-50);
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 18px;
+      color: var(--gray-800);
+    }
+
+    .cta-subtitle {
+      font-size: 16px;
+      color: var(--gray-600);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      padding: 16px 36px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.45);
+    }
+
+    .cta-note {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+
+    /* More dimensions cards */
+    .more-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .more-card {
+      display: block;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      padding: 22px;
+      text-decoration: none;
+      color: inherit;
+      text-align: left;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .more-card:active {
+      transform: scale(0.985);
+    }
+
+    .more-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--gray-800);
     }
 
-    .resource-card p {
+    .more-card p {
+      margin: 0 0 14px;
       font-size: 14px;
       color: var(--gray-600);
       line-height: 1.6;
-      margin-bottom: 16px;
-      flex: 1;
     }
 
-    .resource-link {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--blue);
-      display: inline-flex;
+    .more-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .more-arrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
     }
 
     /* Scroll hint */
@@ -735,49 +833,42 @@
 
     @media (min-width: 768px) {
       .page {
-        padding: 100px 40px 80px;
+        padding: 80px 40px;
       }
 
       .page-content {
-        max-width: 720px;
+        max-width: 680px;
       }
 
       h1 {
-        font-size: 56px;
+        font-size: 52px;
       }
 
       h2 {
         font-size: 38px;
       }
 
-      .hero-visual {
-        padding: 28px;
+      .big-quote {
+        font-size: 36px;
       }
 
-      .feature-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-
-      .result-grid {
+      .ai-features {
         grid-template-columns: repeat(4, 1fr);
       }
 
-      .pain-list {
+      .feishu-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 16px;
       }
 
-      .resource-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+      .compare-item {
+        grid-template-columns: 1fr 60px 1fr;
+        padding: 22px 20px;
       }
 
-      .guarantee-list {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+      .mobile-showcase {
+        margin-bottom: 36px;
       }
     }
   </style>
@@ -785,328 +876,375 @@
 <body>
   <!-- Top navigation -->
   <nav class="top-nav">
-    <div class="top-nav-inner">
-      <a href="index.html" class="nav-brand">交通事故案件数字化管理</a>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link active">首页</a>
-        <a href="architecture-sales.html" class="nav-link">系统架构</a>
-        <a href="architecture-technical.html" class="nav-link">技术架构</a>
-        <a href="traffic-accident-workflow.html" class="nav-link">办案流程</a>
-        <a href="architecture-sales.html" class="nav-more">了解详情 →</a>
+    <div class="top-nav-content">
+      <a href="index.html" class="top-nav-logo">律所数字化</a>
+      <div class="top-nav-links">
+        <a href="traffic-accident-workflow.html" class="top-nav-link">办案流程</a>
+        <a href="architecture-technical.html" class="top-nav-link">技术架构</a>
+        <a href="index.html" class="top-nav-link active">AI 架构</a>
       </div>
-      <button class="nav-menu-btn" aria-label="打开菜单" onclick="toggleNav()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </div>
   </nav>
-  <div class="nav-drawer" id="navDrawer">
-    <a href="index.html" class="nav-link active">首页</a>
-    <a href="architecture-sales.html" class="nav-link">系统架构</a>
-    <a href="architecture-technical.html" class="nav-link">技术架构</a>
-    <a href="traffic-accident-workflow.html" class="nav-link">办案流程</a>
+
+  <!-- Navigation dots -->
+  <div class="nav-dots">
+    <div class="nav-dot active" data-page="0"></div>
+    <div class="nav-dot" data-page="1"></div>
+    <div class="nav-dot" data-page="2"></div>
+    <div class="nav-dot" data-page="3"></div>
+    <div class="nav-dot" data-page="4"></div>
+    <div class="nav-dot" data-page="5"></div>
+    <div class="nav-dot" data-page="6"></div>
+    <div class="nav-dot" data-page="7"></div>
   </div>
 
   <!-- Page 1: Hero -->
   <section class="page page-1" id="page1">
     <div class="page-content">
-      <div class="badge">交通事故案件专属</div>
-      <h1>让交通事故律所<br>少漏事 · 少填表 · 多办案</h1>
-      <p class="subtitle">专为办理交通事故案件的律所打造。深度融合飞书与 AI，把重复工作交给系统，让律师把时间放回办案。</p>
-
-      <div class="trust-bar">
-        <span class="trust-tag">🚗 交通事故案件专属</span>
-        <span class="trust-tag">💬 飞书深度集成</span>
-        <span class="trust-tag">🔒 私有化部署可选</span>
-      </div>
-
-      <div class="hero-visual">
-        <div class="hero-card">
-          <div class="hero-card-header">
-            <div class="hero-avatar">张</div>
-            <div>
-              <div class="hero-card-title">张三 · 交通事故案</div>
-              <div class="hero-card-status">当前阶段：等事故认定书 → 个人鉴定</div>
-            </div>
-          </div>
-          <div style="font-size: 12px; color: var(--gray-600); margin-bottom: 8px;">案件进度</div>
-          <div class="hero-progress">
-            <div class="hero-progress-step done"></div>
-            <div class="hero-progress-step active"></div>
-            <div class="hero-progress-step"></div>
-            <div class="hero-progress-step"></div>
-            <div class="hero-progress-step"></div>
-          </div>
-        </div>
-      </div>
+      <div class="badge">律所数字化解决方案</div>
+      <h1>AI 驱动的<br>律所数字化系统</h1>
+      <p class="subtitle">AI + 微服务架构，Web 后台是主阵地，飞书作为移动消息入口，让律师随时随地处理案件。</p>
 
       <div class="trust-badges">
         <div class="trust-item">
-          <span class="trust-number">13</span>
-          <span class="trust-label">类节点提醒</span>
+          <span class="trust-number">AI</span>
+          <span class="trust-label">自然语言办公</span>
         </div>
         <div class="trust-item">
-          <span class="trust-number">70%</span>
-          <span class="trust-label">文书填写减少</span>
+          <span class="trust-number">多端</span>
+          <span class="trust-label">Web + 移动端</span>
         </div>
         <div class="trust-item">
-          <span class="trust-number">50%</span>
-          <span class="trust-label">咨询电话减少</span>
+          <span class="trust-number">微服务</span>
+          <span class="trust-label">稳定可扩展</span>
         </div>
       </div>
     </div>
     <div class="scroll-hint">
-      <span>下滑了解详情</span>
+      <span>下滑了解架构</span>
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
     </div>
   </section>
 
-  <!-- Page 2: Pain Points -->
+  <!-- Page 2: Positioning -->
   <section class="page page-2" id="page2">
     <div class="page-content">
-      <div class="section-label">律所痛点</div>
-      <h2>这些场景，你的律所是不是每天都在经历？</h2>
+      <div class="section-label">一句话定位</div>
+      <h2 class="big-quote"><span>Web 后台是主阵地，<br>AI 是助手，<br>微服务是底座。</span></h2>
 
-      <div class="pain-list">
-        <div class="pain-item">
-          <div class="pain-header">
-            <div class="pain-icon">⏰</div>
-            <div>
-              <h3>关键节点总遗漏</h3>
-              <span class="pain-tag risk">风险：执业事故</span>
-            </div>
-          </div>
-          <p>事故认定书跟进、鉴定报告到期、上诉期截止没人提醒，一个疏忽就是客户投诉甚至执业风险。</p>
+      <div class="point-list">
+        <div class="point-item">
+          <div class="point-icon">🤖</div>
+          <h3>AI 律师助理</h3>
+          <p>无论 Web 后台还是飞书消息，发一句话 AI 就能理解意图、调用后端、返回结果，写操作先经确认。</p>
         </div>
-
-        <div class="pain-item">
-          <div class="pain-header">
-            <div class="pain-icon">📞</div>
-            <div>
-              <h3>当事人反复问进度</h3>
-              <span class="pain-tag cost">成本：大量时间</span>
-            </div>
-          </div>
-          <p>「案子到哪了」「还要多久开庭」，律师和助理每天被大量重复电话打断，无法专注核心工作。</p>
+        <div class="point-item">
+          <div class="point-icon">💻</div>
+          <h3>Web 后台是主阵地</h3>
+          <p>案件看板、详情、文书生成、赔偿计算、权限管理等核心功能，都在响应式 Web 后台中完成。</p>
         </div>
-
-        <div class="pain-item">
-          <div class="pain-header">
-            <div class="pain-icon">📝</div>
-            <div>
-              <h3>起诉状反复手写</h3>
-              <span class="pain-tag cost">成本：助理 30% 时间</span>
-            </div>
-          </div>
-          <p>民事起诉状、所函、授权委托书逐份手工填写，格式不统一还容易出错，返工成本很高。</p>
+        <div class="point-item">
+          <div class="point-icon">🧩</div>
+          <h3>微服务不宕机</h3>
+          <p>案件、提醒、文件、文书等模块独立运行，数据库、缓存、文件存储分离，一处升级不影响全局。</p>
         </div>
-
-        <div class="pain-item">
-          <div class="pain-header">
-            <div class="pain-icon">🧮</div>
-            <div>
-              <h3>赔偿计算耗时间</h3>
-              <span class="pain-tag cost">成本：30 分钟/次</span>
-            </div>
-          </div>
-          <p>残疾赔偿金、护理费、误工费、精神损害抚慰金等项目计算复杂，标准更新易出错。</p>
-        </div>
-
-        <div class="pain-item">
-          <div class="pain-header">
-            <div class="pain-icon">📎</div>
-            <div>
-              <h3>材料散落难找</h3>
-              <span class="pain-tag risk">风险：急用时找不到</span>
-            </div>
-          </div>
-          <p>事故认定书、鉴定报告、保单、判决书存在不同地方，急用时翻半天，影响响应速度。</p>
-        </div>
-      </div>
-
-      <div class="pain-transition">
-        这些问题，本质上是 Excel 和人工流程已经撑不住了。
       </div>
     </div>
   </section>
 
-  <!-- Page 3: Solution -->
+  <!-- Page 3: Architecture -->
   <section class="page page-3" id="page3">
     <div class="page-content">
-      <div class="section-label">解决方案</div>
-      <h2>一套系统，替代<br>Excel + 微信群 + 手写文书</h2>
+      <div class="section-label">系统架构</div>
+      <h2>四层架构，<br>像搭积木一样稳</h2>
 
-      <div class="feature-grid">
-        <div class="feature-box">
-          <span class="icon">⏰</span>
-          <h3>自动提醒</h3>
-          <div class="result">关键节点 0 遗漏</div>
+      <div class="arch-stack">
+        <div class="arch-layer">
+          <div class="arch-layer-title">
+            <div class="arch-layer-icon">🖥️</div>
+            第一层：多端入口
+          </div>
+          <p>Web 管理后台是核心操作界面；飞书作为可选的消息通道，可接收提醒、查看卡片、确认操作。</p>
+          <div class="arch-tags">
+            <span class="arch-tag">Web 后台</span>
+            <span class="arch-tag">飞书消息</span>
+            <span class="arch-tag">手机浏览器</span>
+            <span class="arch-tag">主动提醒</span>
+          </div>
         </div>
-        <div class="feature-box">
-          <span class="icon">🔍</span>
-          <h3>智能识别</h3>
-          <div class="result">事故认定书 3 秒录入</div>
-        </div>
-        <div class="feature-box">
-          <span class="icon">🧮</span>
-          <h3>赔偿计算</h3>
-          <div class="result">30 分钟 → 3 分钟</div>
-        </div>
-        <div class="feature-box">
-          <span class="icon">📝</span>
-          <h3>文书生成</h3>
-          <div class="result">起诉状一键生成</div>
-        </div>
-        <div class="feature-box">
-          <span class="icon">📅</span>
-          <h3>日程同步</h3>
-          <div class="result">开庭自动进飞书日历</div>
-        </div>
-        <div class="feature-box">
-          <span class="icon">💬</span>
-          <h3>自然语言</h3>
-          <div class="result">飞书里说话就能办公</div>
-        </div>
-      </div>
 
-      <div class="compare-bar">
-        <div class="compare-row">
-          <div class="compare-side old">Excel 管进度<br>微信催材料</div>
-          <div class="compare-vs">VS</div>
-          <div class="compare-side new">系统管节点<br>自动提醒到人</div>
+        <div class="arch-layer">
+          <div class="arch-layer-title">
+            <div class="arch-layer-icon">🤖</div>
+            第二层：AI 智能层
+          </div>
+          <p>AI 助理理解自然语言，识别文件类型，多轮追问缺失信息，再调用后端 CLI 执行业务。</p>
+          <div class="arch-tags">
+            <span class="arch-tag">意图识别</span>
+            <span class="arch-tag">多轮对话</span>
+            <span class="arch-tag">文件识别</span>
+            <span class="arch-tag">安全约束</span>
+          </div>
         </div>
-        <div class="compare-row">
-          <div class="compare-side old">手写文书<br>反复核对</div>
-          <div class="compare-vs">VS</div>
-          <div class="compare-side new">一键生成<br>模板统一</div>
+
+        <div class="arch-layer">
+          <div class="arch-layer-title">
+            <div class="arch-layer-icon">⚙️</div>
+            第三层：业务中台
+          </div>
+          <p>按领域拆分的微服务模块：案件、提醒、文件、文书、人员、赔偿计算、导入等，各自独立运行。</p>
+          <div class="arch-tags">
+            <span class="arch-tag">案件管理</span>
+            <span class="arch-tag">提醒引擎</span>
+            <span class="arch-tag">文书生成</span>
+            <span class="arch-tag">赔偿计算</span>
+          </div>
         </div>
-        <div class="compare-row">
-          <div class="compare-side old">当事人电话问进度</div>
-          <div class="compare-vs">VS</div>
-          <div class="compare-side new">飞书随时查状态</div>
+
+        <div class="arch-layer">
+          <div class="arch-layer-title">
+            <div class="arch-layer-icon">🗄️</div>
+            第四层：数据底座
+          </div>
+          <p>业务数据存 MySQL，会话和队列用 Redis，案件文件归档到坚果云，三层分离、互不拖累。</p>
+          <div class="arch-tags">
+            <span class="arch-tag">MySQL</span>
+            <span class="arch-tag">Redis</span>
+            <span class="arch-tag">坚果云</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Page 4: Results -->
+  <!-- Page 4: AI -->
   <section class="page page-4" id="page4">
     <div class="page-content">
-      <div class="section-label" style="color: var(--amber);">实际效果</div>
-      <h2>把重复工作交给系统后<br>律所发生了什么变化</h2>
+      <div class="section-label">AI 能力</div>
+      <h2>说话就能办公</h2>
 
-      <div class="result-grid">
-        <div class="result-card">
-          <span class="number">70%</span>
-          <span class="label">文书填写减少<br>起诉状、所函等自动生成</span>
+      <div class="chat-card">
+        <div class="chat-line">帮我查一下张三的案件到哪了</div>
+        <div class="chat-line reply">张三（交通事故）当前阶段：等事故认定书<br>承办律师：李律师</div>
+        <div class="chat-line">把张三的案子推进到鉴定阶段</div>
+        <div class="chat-line reply">已为您准备阶段推进确认卡片，请核对后点击确认。</div>
+      </div>
+
+      <div class="ai-features">
+        <div class="ai-feature">
+          <span class="icon">🔍</span>
+          <h3>查案件</h3>
+          <p>关键词、阶段、时间筛选</p>
         </div>
-        <div class="result-card">
-          <span class="number">90%</span>
-          <span class="label">遗漏风险降低<br>13 类关键节点自动提醒</span>
+        <div class="ai-feature">
+          <span class="icon">📝</span>
+          <h3>录案件</h3>
+          <p>多轮对话补齐信息</p>
         </div>
-        <div class="result-card">
-          <span class="number">50%</span>
-          <span class="label">咨询电话减少<br>当事人在飞书看进度</span>
+        <div class="ai-feature">
+          <span class="icon">📎</span>
+          <h3>传文件</h3>
+          <p>识别事故认定书等材料</p>
         </div>
-        <div class="result-card">
-          <span class="number">3 秒</span>
-          <span class="label">事故认定书录入<br>AI 自动识别关键信息</span>
+        <div class="ai-feature">
+          <span class="icon">⏰</span>
+          <h3>查提醒</h3>
+          <p>待办事项随口问</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Page 5: Service Guarantee -->
+  <!-- Page 5: Feishu as channel -->
   <section class="page page-5" id="page5">
     <div class="page-content">
-      <div class="section-label">服务与保障</div>
-      <h2>系统落地，<br>我们提供这些保障</h2>
+      <div class="section-label">消息通道</div>
+      <h2>飞书作为<br>移动端提醒入口</h2>
 
-      <div class="guarantee-list">
-        <div class="guarantee-card">
-          <h3>🔒 数据独立，部署灵活</h3>
-          <p>支持私有化部署，案件数据、文书模板、赔偿标准由律所自己掌控。不和其它客户混用数据库，满足律师行业对数据独立性的要求。</p>
-          <div class="guarantee-tags">
-            <span class="guarantee-tag">私有化部署</span>
-            <span class="guarantee-tag">独立数据库</span>
-            <span class="guarantee-tag">数据可控</span>
+      <div class="chat-card" style="margin-bottom: 20px;">
+        <div class="chat-line">系统核心仍是 Web 管理后台，飞书定位为可选的消息通道，用于关键节点提醒和简单确认。</div>
+      </div>
+
+      <div class="feishu-grid">
+        <div class="feishu-card">
+          <div class="feishu-icon">⏰</div>
+          <h3>关键提醒</h3>
+          <p>事故认定书、鉴定到期、上诉截止等节点，可推送飞书消息，律师手机即收即看。</p>
+        </div>
+        <div class="feishu-card">
+          <div class="feishu-icon">✅</div>
+          <h3>一键确认</h3>
+          <p>创建案件、推进阶段等写操作，可通过飞书卡片二次确认，操作留痕。</p>
+        </div>
+        <div class="feishu-card">
+          <div class="feishu-icon">📅</div>
+          <h3>日程同步</h3>
+          <p>开庭日期、关键节点可同步至飞书日历，团队日程一目了然。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 6: Microservices -->
+  <section class="page page-6" id="page6">
+    <div class="page-content">
+      <div class="section-label">微服务架构</div>
+      <h2>模块化，<br>稳得像老司机</h2>
+
+      <div class="compare-list">
+        <div class="compare-item">
+          <div class="compare-box old">
+            <h4>传统系统</h4>
+            <p>所有功能耦合<br>一处报错全站瘫</p>
+          </div>
+          <div class="compare-vs">VS</div>
+          <div class="compare-box ours">
+            <h4>我们的方案</h4>
+            <p>模块独立运行<br>单点故障不影响全局</p>
           </div>
         </div>
-
-        <div class="guarantee-card">
-          <h3>🛠️ 按律所业务定制</h3>
-          <p>不同律所的办案习惯、文书模板、赔偿标准、提醒规则都有差异。系统支持按实际业务调整，而不是让律所迁就系统。</p>
-          <div class="guarantee-tags">
-            <span class="guarantee-tag">文书模板定制</span>
-            <span class="guarantee-tag">提醒规则配置</span>
-            <span class="guarantee-tag">流程适配</span>
+        <div class="compare-item">
+          <div class="compare-box old">
+            <h4>传统系统</h4>
+            <p>升级一次全部停机<br>影响白天办案</p>
+          </div>
+          <div class="compare-vs">VS</div>
+          <div class="compare-box ours">
+            <h4>我们的方案</h4>
+            <p>按模块灰度发布<br>业务不中断</p>
           </div>
         </div>
+        <div class="compare-item">
+          <div class="compare-box old">
+            <h4>传统系统</h4>
+            <p>文件和数据混在一起<br>扩容困难</p>
+          </div>
+          <div class="compare-vs">VS</div>
+          <div class="compare-box ours">
+            <h4>我们的方案</h4>
+            <p>数据/缓存/文件分离<br>按需扩展</p>
+          </div>
+        </div>
+      </div>
 
-        <div class="guarantee-card">
-          <h3>🚀 持续迭代，长期可用</h3>
-          <p>系统基于模块化架构开发，新功能可按模块扩展。从交通事故案件管理起步，未来可平滑延伸到其它业务领域。</p>
-          <div class="guarantee-tags">
-            <span class="guarantee-tag">模块化架构</span>
-            <span class="guarantee-tag">平滑扩展</span>
-            <span class="guarantee-tag">长期迭代</span>
+      <div class="micro-benefits">
+        <div class="micro-benefit">
+          <span class="num">99.9%+</span>
+          <span class="label">可用性目标</span>
+        </div>
+        <div class="micro-benefit">
+          <span class="num">10+</span>
+          <span class="label">独立模块</span>
+        </div>
+        <div class="micro-benefit">
+          <span class="num">分钟级</span>
+          <span class="label">模块升级</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 7: Mobile -->
+  <section class="page page-7" id="page7">
+    <div class="page-content">
+      <div class="section-label" style="color: var(--amber);">移动端</div>
+      <h2>律师在手机上<br>就能办完全案</h2>
+
+      <div class="mobile-showcase">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-header">律所助手 · 移动端</div>
+            <div class="phone-msg">帮我看看今天有什么待办</div>
+            <div class="phone-msg reply">您今天有 3 条待办提醒</div>
+            <div class="phone-card">
+              <div class="phone-card-title">今日待办 (3)</div>
+              <div class="phone-card-row"><span>张三案</span><span>鉴定到期</span></div>
+              <div class="phone-card-row"><span>李四案</span><span>上诉期截止</span></div>
+              <div class="phone-card-row"><span>王五案</span><span>补充材料</span></div>
+              <div class="phone-card-btns">
+                <div class="phone-card-btn primary">查看</div>
+                <div class="phone-card-btn default">忽略</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-points">
+        <div class="mobile-point">
+          <div class="mobile-point-icon">🌐</div>
+          <div>
+            <h3>Web 后台响应式设计</h3>
+            <p>管理后台基于响应式布局，手机浏览器打开即可处理案件。</p>
+          </div>
+        </div>
+        <div class="mobile-point">
+          <div class="mobile-point-icon">💬</div>
+          <div>
+            <h3>飞书可作为消息通道</h3>
+            <p>关键提醒和确认可推送到飞书，律师无需时刻守在电脑前。</p>
+          </div>
+        </div>
+        <div class="mobile-point">
+          <div class="mobile-point-icon">⚡</div>
+          <div>
+            <h3>随时随地响应</h3>
+            <p>法院门口、地铁上、当事人电话旁，打开手机即可处理。</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Page 6: Resources -->
-  <section class="page page-6" id="page6">
+  <!-- Page 8: More dimensions -->
+  <section class="page page-8" id="page8">
     <div class="page-content">
-      <div class="section-label">深入了解</div>
-      <h2>还想更全面了解？</h2>
 
-      <div class="resource-grid">
-        <a href="architecture-sales.html" class="resource-card">
-          <div class="resource-header">
-            <div class="resource-icon">🏗️</div>
-            <h3>系统架构说明</h3>
-          </div>
-          <p>看系统如何支撑律所业务：Web 后台、AI 助手、微服务底座和飞书消息入口的完整定位。</p>
-          <div class="resource-link">查看系统架构 →</div>
-        </a>
+      
+      <div class="section-label">更多维度</div>
+        <h2>还想了解哪些方面？</h2>
 
-        <a href="architecture-technical.html" class="resource-card">
-          <div class="resource-header">
-            <div class="resource-icon">⚙️</div>
-            <h3>技术架构详情</h3>
-          </div>
-          <p>看技术实现与数据安全：React + NestJS + TypeORM + Redis + 坚果云，模块化单体架构。</p>
-          <div class="resource-link">查看技术架构 →</div>
-        </a>
-
-        <a href="traffic-accident-workflow.html" class="resource-card">
-          <div class="resource-header">
-            <div class="resource-icon">🚗</div>
+        <div class="more-grid">
+          <a href="traffic-accident-workflow.html" class="more-card">
+            <div class="more-icon" style="background: var(--green-light);">🚗</div>
             <h3>交通事故办案流程</h3>
-          </div>
-          <p>看系统如何嵌入真实办案流程：从接案到结案，每个阶段的提醒、文书和 AI 能力。</p>
-          <div class="resource-link">查看办案流程 →</div>
-        </a>
-      </div>
+            <p>从接案到结案，系统如何串联全流程并借助 AI 识别、赔偿测算、文书生成提效。</p>
+            <span class="more-arrow">查看详情 →</span>
+          </a>
+
+          <a href="architecture-technical.html" class="more-card">
+            <div class="more-icon" style="background: var(--blue-light);">🏗️</div>
+            <h3>技术架构</h3>
+            <p>系统的稳定性、安全性、私有化部署能力，以及与飞书等平台的集成方案。</p>
+            <span class="more-arrow">查看详情 →</span>
+          </a>
+        </div>
+      <p class="cta-note">支持私有化部署 · 数据独立存储 · 按律所业务定制</p>
     </div>
   </section>
 
   <script>
-    function toggleNav() {
-      const btn = document.querySelector('.nav-menu-btn');
-      const drawer = document.getElementById('navDrawer');
-      btn.classList.toggle('open');
-      drawer.classList.toggle('open');
-    }
+    const pages = document.querySelectorAll('.page');
+    const dots = document.querySelectorAll('.nav-dot');
 
-    document.querySelectorAll('.nav-drawer .nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        toggleNav();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Array.from(pages).indexOf(entry.target);
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    pages.forEach(page => observer.observe(page));
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        pages[index].scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>

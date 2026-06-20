@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>交通事故案件办理流程图</title>
+  <title>交通事故案件智能办理系统</title>
   <style>
     :root {
-      --blue: #1d4ed8;
-      --blue-dark: #1e40af;
-      --blue-light: #dbeafe;
       --primary: #2563eb;
       --primary-light: #dbeafe;
       --success: #16a34a;
@@ -30,165 +27,15 @@
       --shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       margin: 0;
-      padding: 56px 0 0 0;
+      padding: 0;
       background: var(--gray-50);
       color: var(--gray-800);
       line-height: 1.6;
-    }
-
-    /* Top navigation */
-    .top-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--gray-100);
-      height: 56px;
-    }
-
-    .top-nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-brand {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--gray-800);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: none;
-      gap: 8px;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gray-600);
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 999px;
-      transition: all 0.2s;
-    }
-
-    .nav-link:hover {
-      color: var(--blue);
-      background: var(--blue-light);
-    }
-
-    .nav-link.active {
-      color: var(--blue);
-      background: var(--blue-light);
-    }
-
-    .nav-more {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--blue);
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--blue-light);
-      transition: all 0.2s;
-    }
-
-    .nav-more:hover {
-      background: var(--blue-light);
-    }
-
-    .nav-menu-btn {
-      width: 40px;
-      height: 40px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      padding: 0;
-    }
-
-    .nav-menu-btn span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--gray-800);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .nav-menu-btn.open span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .nav-menu-btn.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .nav-menu-btn.open span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    .nav-drawer {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--gray-100);
-      padding: 12px 20px 20px;
-      z-index: 199;
-      transform: translateY(-120%);
-      opacity: 0;
-      transition: all 0.3s ease;
-      pointer-events: none;
-    }
-
-    .nav-drawer.open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .nav-drawer .nav-link {
-      display: block;
-      padding: 14px 16px;
-      font-size: 16px;
-      border-radius: 12px;
-      margin-bottom: 6px;
-    }
-
-    @media (min-width: 768px) {
-      .nav-links {
-        display: flex;
-      }
-      .nav-menu-btn {
-        display: none;
-      }
-      .nav-drawer {
-        display: none;
-      }
     }
 
     .container {
@@ -200,56 +47,37 @@
     header {
       text-align: center;
       margin-bottom: 32px;
-      padding: 24px;
-      background: white;
+      padding: 40px 24px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      color: white;
     }
 
     header h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      color: var(--gray-800);
+      margin: 0 0 12px;
+      font-size: 32px;
+      font-weight: 700;
     }
 
     header p {
-      margin: 0;
-      color: var(--gray-600);
-      font-size: 15px;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--gray-600);
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+      margin: 0 auto;
+      max-width: 720px;
+      font-size: 17px;
+      opacity: 0.95;
+      line-height: 1.7;
     }
 
     .section {
       background: white;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 24px;
+      padding: 32px;
       margin-bottom: 24px;
     }
 
     .section-title {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 600;
       margin: 0 0 20px;
       display: flex;
@@ -258,976 +86,365 @@
     }
 
     .section-title .icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
     }
 
-    /* 流程图时间轴 */
-    .timeline {
-      position: relative;
-      padding-left: 36px;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 11px;
-      top: 8px;
-      bottom: 8px;
-      width: 3px;
-      background: var(--gray-200);
-      border-radius: 3px;
-    }
-
-    .stage {
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .stage:last-child {
-      margin-bottom: 0;
-    }
-
-    .stage-marker {
-      position: absolute;
-      left: -36px;
-      top: 4px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 0 3px var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: white;
-      font-weight: 600;
-      z-index: 1;
-    }
-
-    .stage-card {
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: white;
-      transition: box-shadow 0.2s;
-    }
-
-    .stage-card:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    .stage-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .stage-name {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--gray-800);
-      margin: 0;
-    }
-
-    .stage-badge {
-      font-size: 12px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
-      font-weight: 500;
-    }
-
-    .stage-desc {
-      font-size: 14px;
+    .lead {
+      font-size: 16px;
       color: var(--gray-600);
-      margin: 0 0 12px;
+      margin-top: -12px;
+      margin-bottom: 24px;
     }
 
-    .stage-fields {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .field-tag {
-      font-size: 12px;
-      padding: 3px 8px;
-      background: var(--gray-100);
-      border-radius: 4px;
-      color: var(--gray-600);
-    }
-
-    .reminders {
-      background: #fffbeb;
-      border-left: 4px solid var(--warning);
-      border-radius: 8px;
-      padding: 12px;
-      margin-top: 12px;
-    }
-
-    .reminders-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--warning);
-      margin: 0 0 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .reminders ul {
-      margin: 0;
-      padding-left: 18px;
-      font-size: 13px;
-      color: var(--gray-700);
-    }
-
-    .reminders li {
-      margin-bottom: 4px;
-    }
-
-    .reminders li:last-child {
-      margin-bottom: 0;
-    }
-
-    .feature-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 500;
-      margin-top: 8px;
-    }
-
-    .branch {
-      display: flex;
-      gap: 16px;
-      margin: 12px 0 12px 0;
-      padding: 16px;
-      background: var(--gray-50);
-      border-radius: var(--radius);
-      border: 1px dashed var(--gray-200);
-    }
-
-    .branch-column {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .branch-label {
-      font-size: 13px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      display: inline-block;
-    }
-
-    .branch-column .stage {
-      margin-bottom: 12px;
-    }
-
-    .branch-column .stage-marker {
-      width: 20px;
-      height: 20px;
-      left: -32px;
-      font-size: 10px;
-    }
-
-    .branch-column .timeline {
-      padding-left: 28px;
-    }
-
-    .branch-column .timeline::before {
-      left: 9px;
-    }
-
-    /* 特色功能说明 */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+      gap: 20px;
     }
 
     .feature-card {
       border: 1px solid var(--gray-200);
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 24px;
       background: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
     .feature-card h3 {
-      margin: 0 0 10px;
-      font-size: 16px;
+      margin: 0 0 12px;
+      font-size: 17px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .feature-card p {
-      margin: 0 0 12px;
+      margin: 0;
       font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* 流程概览 */
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      position: relative;
+    }
+
+    .workflow-step {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .workflow-step .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto 12px;
+    }
+
+    .workflow-step h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .workflow-step p {
+      margin: 0;
+      font-size: 13px;
       color: var(--gray-600);
     }
 
-    .feature-steps {
+    .workflow-arrow {
+      display: none;
+    }
+
+    @media (min-width: 992px) {
+      .workflow {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .workflow-arrow {
+        display: block;
+        position: absolute;
+        right: -22px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+        background: var(--gray-200);
+        border-radius: 50%;
+        color: var(--gray-600);
+        font-size: 14px;
+        line-height: 28px;
+        text-align: center;
+        z-index: 1;
+      }
+    }
+
+    .highlight-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
       margin: 0;
-      padding-left: 18px;
-      font-size: 13px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .highlight-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px;
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      font-size: 14px;
       color: var(--gray-700);
     }
 
-    .feature-steps li {
-      margin-bottom: 6px;
-    }
-
-    .highlight {
-      background: var(--primary-light);
-      color: var(--primary);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: 500;
+    .highlight-list li::before {
+      content: "✓";
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--success);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .notice {
       background: var(--primary-light);
       border-left: 4px solid var(--primary);
       border-radius: 8px;
-      padding: 14px;
+      padding: 18px;
       font-size: 14px;
       color: var(--gray-700);
-      margin-top: 16px;
+      margin-top: 24px;
     }
 
     .notice strong {
       color: var(--primary);
     }
 
+    .cta {
+      text-align: center;
+      padding: 40px 24px;
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+      border-radius: var(--radius);
+      margin-top: 8px;
+    }
+
+    .cta h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+
+    .cta p {
+      margin: 0 0 20px;
+      color: var(--gray-600);
+      font-size: 15px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+
+    .cta-button:hover {
+      background: #1d4ed8;
+    }
+
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 24px;
       color: var(--gray-600);
       font-size: 13px;
     }
 
-    .cta-section {
-      background: linear-gradient(165deg, var(--blue-dark) 0%, var(--blue) 60%, #3b82f6 100%);
-      color: var(--white);
-      padding: 60px 24px;
-      text-align: center;
-      margin: 32px -24px -24px;
-      border-radius: var(--radius) var(--radius) 0 0;
-    }
-
-    .cta-section-content {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .cta-section h2 {
-      color: var(--white);
-      font-size: 26px;
-      margin: 0 0 16px;
-    }
-
-    .cta-section p {
-      font-size: 15px;
-      opacity: 0.92;
-      margin-bottom: 28px;
-      line-height: 1.7;
-    }
-
-    .cta-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .cta-link {
-      display: inline-block;
-      background: var(--white);
-      color: var(--blue);
-      padding: 14px 28px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-      transition: transform 0.2s;
-    }
-
-    .cta-link:hover {
-      transform: translateY(-2px);
-    }
-
-    .cta-link-outline {
-      background: transparent;
-      color: var(--white);
-      border: 1px solid rgba(255,255,255,0.4);
-      box-shadow: none;
-    }
-
-    @media (min-width: 768px) {
-      .cta-section h2 {
-        font-size: 34px;
-      }
-      .cta-links {
-        flex-direction: row;
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .branch {
-        flex-direction: column;
-      }
-
-      .stage-header {
-        flex-direction: column;
-      }
-
-      .legend {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
-    /* 颜色主题 */
-    .bg-blue { background: var(--primary); }
-    .bg-green { background: var(--success); }
-    .bg-orange { background: var(--warning); }
-    .bg-red { background: var(--danger); }
-    .bg-purple { background: var(--purple); }
-    .bg-teal { background: var(--teal); }
-    .bg-gray { background: var(--gray-600); }
+    .bg-blue { background: var(--primary-light); }
+    .bg-green { background: var(--success-light); }
+    .bg-orange { background: var(--warning-light); }
+    .bg-purple { background: var(--purple-light); }
+    .bg-teal { background: var(--teal-light); }
 
     .text-blue { color: var(--primary); }
     .text-green { color: var(--success); }
     .text-orange { color: var(--warning); }
-    .text-red { color: var(--danger); }
     .text-purple { color: var(--purple); }
     .text-teal { color: var(--teal); }
-
-    .badge-blue { background: var(--primary-light); color: var(--primary); }
-    .badge-green { background: var(--success-light); color: var(--success); }
-    .badge-orange { background: var(--warning-light); color: var(--warning); }
-    .badge-red { background: var(--danger-light); color: var(--danger); }
-    .badge-purple { background: var(--purple-light); color: var(--purple); }
-    .badge-teal { background: var(--teal-light); color: var(--teal); }
-
-    .feature-blue { background: var(--primary-light); color: var(--primary); }
-    .feature-green { background: var(--success-light); color: var(--success); }
-    .feature-purple { background: var(--purple-light); color: var(--purple); }
-    .feature-teal { background: var(--teal-light); color: var(--teal); }
   </style>
 </head>
 <body>
-  <!-- Top navigation -->
-  <nav class="top-nav">
-    <div class="top-nav-inner">
-      <a href="index.html" class="nav-brand">交通事故案件数字化管理</a>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">首页</a>
-        <a href="architecture-sales.html" class="nav-link">系统架构</a>
-        <a href="architecture-technical.html" class="nav-link">技术架构</a>
-        <a href="traffic-accident-workflow.html" class="nav-link active">办案流程</a>
-        <a href="index.html" class="nav-more">首页 →</a>
-      </div>
-      <button class="nav-menu-btn" aria-label="打开菜单" onclick="toggleNav()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
-  <div class="nav-drawer" id="navDrawer">
-    <a href="index.html" class="nav-link">首页</a>
-    <a href="architecture-sales.html" class="nav-link">系统架构</a>
-    <a href="architecture-technical.html" class="nav-link">技术架构</a>
-    <a href="traffic-accident-workflow.html" class="nav-link active">办案流程</a>
-  </div>
-
   <div class="container">
     <header>
-      <h1>🚗 交通事故案件办理流程图</h1>
-      <p>面向律师的简明流程说明：阶段、提醒、特色功能</p>
-      <div class="legend">
-        <div class="legend-item"><span class="dot bg-blue"></span>主线阶段</div>
-        <div class="legend-item"><span class="dot bg-orange"></span>分叉决策</div>
-        <div class="legend-item"><span class="dot bg-purple"></span>AI 识别</div>
-        <div class="legend-item"><span class="dot bg-green"></span>文书生成</div>
-        <div class="legend-item"><span class="dot bg-teal"></span>赔偿计算</div>
-        <div class="legend-item"><span class="dot bg-red"></span>紧急提醒</div>
-      </div>
+      <h1>🚗 交通事故案件智能办理系统</h1>
+      <p>把律师从繁琐的流程事务中解放出来。接案、鉴定、调解、诉讼、执行、结案，全流程数字化；AI 助手 7×24 小时待命，自动提醒、自动算赔、自动出文书。</p>
     </header>
 
-    <!-- 流程主线 -->
+    <!-- 核心价值 -->
     <section class="section">
       <h2 class="section-title">
-        <span class="icon" style="background: var(--primary-light);">📋</span>
-        案件办理全流程
+        <span class="icon bg-blue">🎯</span>
+        系统能为您做什么
       </h2>
-
-      <div class="timeline">
-        <!-- 接案录入 -->
-        <div class="stage">
-          <div class="stage-marker bg-blue">1</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">接案录入</h3>
-              <span class="stage-badge badge-blue">流程起点</span>
-            </div>
-            <p class="stage-desc">录入当事人信息、事故时间地点、分配主办律师，系统自动生成案件编号（如 2026-JT-06-001）。</p>
-            <div class="stage-fields">
-              <span class="field-tag">当事人姓名</span>
-              <span class="field-tag">身份证号</span>
-              <span class="field-tag">事故时间</span>
-              <span class="field-tag">事故地点</span>
-              <span class="field-tag">承办律师</span>
-            </div>
-            <span class="feature-tag feature-green">📝 自动生成：授权委托书</span>
-            <div class="reminders">
-              <div class="reminders-title">⏰ 飞书自动提醒</div>
-              <ul>
-                <li><strong>接案当日</strong>：提醒联系交警，了解事故认定书进度</li>
-              </ul>
-            </div>
-          </div>
+      <p class="lead">不是简单的案件登记工具，而是一套覆盖交通事故案件全生命周期的智能工作流。</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3><span class="text-purple">🔍</span> 材料智能识别</h3>
+          <p>上传事故认定书、保单、鉴定报告等文件，系统自动提取关键信息并归档，减少 80% 以上的重复录入工作。</p>
         </div>
-
-        <!-- 等事故认定书 -->
-        <div class="stage">
-          <div class="stage-marker bg-purple">2</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">等事故认定书</h3>
-              <span class="stage-badge badge-purple">AI 识别</span>
-            </div>
-            <p class="stage-desc">上传《道路交通事故认定书》和保单扫描件，系统自动识别被告信息、责任划分、事故类型、认定机关，并自动创建对方当事人和保险公司档案。</p>
-            <div class="stage-fields">
-              <span class="field-tag">事故认定书扫描件</span>
-              <span class="field-tag">保单</span>
-              <span class="field-tag">事故类型</span>
-              <span class="field-tag">对方责任</span>
-              <span class="field-tag">预估伤残等级</span>
-            </div>
-            <span class="feature-tag feature-purple">🔍 特色：事故认定书 + 保单 OCR 识别</span>
-            <div class="reminders">
-              <div class="reminders-title">⏰ 飞书自动提醒</div>
-              <ul>
-                <li><strong>认定书 T+7</strong>：提醒确认进度</li>
-                <li><strong>认定书 T+15</strong>：提醒了解原因并催促</li>
-              </ul>
-            </div>
-          </div>
+        <div class="feature-card">
+          <h3><span class="text-teal">🧮</span> 赔偿一键测算</h3>
+          <p>结合地区标准、伤残等级、责任比例和当事人情况，自动生成赔偿项目清单，为调解谈判和诉讼请求提供数据支撑。</p>
         </div>
-
-        <!-- 个人鉴定 -->
-        <div class="stage">
-          <div class="stage-marker bg-blue">3</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">个人鉴定</h3>
-              <span class="stage-badge badge-blue">诉前鉴定</span>
-            </div>
-            <p class="stage-desc">当事人进行伤残等级鉴定。系统记录鉴定所、法医、鉴定报告及伤残等级，作为后续调解或诉讼依据。</p>
-            <div class="stage-fields">
-              <span class="field-tag">伤残等级</span>
-              <span class="field-tag">附加等级</span>
-              <span class="field-tag">鉴定报告</span>
-              <span class="field-tag">伤情诊断</span>
-              <span class="field-tag">法医</span>
-            </div>
-            <span class="feature-tag feature-green">📝 自动生成：鉴定申请书</span>
-            <div class="reminders">
-              <div class="reminders-title">⏰ 飞书自动提醒</div>
-              <ul>
-                <li><strong>鉴定前 7 天</strong>：提醒通知当事人准备材料</li>
-                <li><strong>鉴定后 7 天</strong>：提醒跟进鉴定报告出具进度</li>
-              </ul>
-            </div>
-          </div>
+        <div class="feature-card">
+          <h3><span class="text-green">📝</span> 文书自动生成</h3>
+          <p>根据案件阶段自动聚合数据，生成起诉状、所函、鉴定申请、证据清单等常用文书，律师审批后即可使用。</p>
         </div>
-
-        <!-- 定级分流 -->
-        <div class="stage">
-          <div class="stage-marker bg-orange">4</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">定级分流</h3>
-              <span class="stage-badge badge-orange">决策节点</span>
-            </div>
-            <p class="stage-desc">根据伤残等级和案件情况，律师选择「调解」或「诉讼」方向。系统给出建议标签，但最终决策权在律师。</p>
-            <div class="stage-fields">
-              <span class="field-tag">推进方向</span>
-              <span class="field-tag">调解 / 诉讼</span>
-            </div>
-          </div>
+        <div class="feature-card">
+          <h3><span class="text-blue">⏰</span> 节点自动提醒</h3>
+          <p>接案、鉴定、立案、开庭、上诉、执行等关键节点自动推送提醒，避免错过上诉期、执行期等致命时限。</p>
         </div>
-
-        <!-- 调解 / 诉讼 分支 -->
-        <div class="branch">
-          <div class="branch-column">
-            <div class="branch-label badge-green">调解方向</div>
-            <div class="timeline">
-              <div class="stage">
-                <div class="stage-marker bg-green">A</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">调解准备</h3>
-                  <p class="stage-desc">确定调解日期和参与人员，系统可自动计算赔偿金额作为调解方案参考。</p>
-                  <span class="feature-tag feature-teal">🧮 可调用：赔偿金额计算</span>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>调解前 3 天</strong>：提醒准备赔偿方案与材料包</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-green">B</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">调解结果</h3>
-                  <p class="stage-desc">记录调解成功或失败。调解成功可进入结案；调解失败可转诉讼方向继续推进。</p>
-                  <div class="stage-fields">
-                    <span class="field-tag">调解结果</span>
-                    <span class="field-tag">赔偿金额</span>
-                    <span class="field-tag">调解书</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="branch-column">
-            <div class="branch-label badge-blue">诉讼方向</div>
-            <div class="timeline">
-              <div class="stage">
-                <div class="stage-marker bg-blue">C</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">诉讼准备</h3>
-                  <p class="stage-desc">填写管辖法院，准备起诉材料。系统根据事故认定书、鉴定结论、赔偿计算结果自动生成民事起诉状等文书。</p>
-                  <span class="feature-tag feature-green">📝 自动生成：民事起诉状、所函、追加被告申请书、变更诉讼请求申请、授权委托书</span>
-                  <span class="feature-tag feature-teal">🧮 可调用：赔偿金额计算</span>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>诉讼材料截止前 3 天</strong>：提醒检查起诉状与证据清单</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-blue">D</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">立案</h3>
-                  <p class="stage-desc">向法院提交立案材料，记录立案日期和受理通知书。</p>
-                  <span class="feature-tag feature-green">📝 自动生成：送达地址确认书、诉讼费用退付收款账户确认书、收件清单、证据提交清单</span>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>立案后每 15 天</strong>：提醒确认法院是否已受理</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-blue">E</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">法鉴鉴定</h3>
-                  <p class="stage-desc">法院委托的司法鉴定。记录法鉴等级、附加等级、法医及鉴定报告。</p>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-blue">F</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">受理后排期</h3>
-                  <p class="stage-desc">法院受理后安排开庭。记录开庭日期和案号，系统自动同步飞书日历提醒。</p>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>受理后每 15 天</strong>：提醒确认开庭传票/排期情况</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-blue">G</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">开庭前准备</h3>
-                  <p class="stage-desc">整理证据清单要点和庭审大致内容。系统可解析已上传 PDF 证据，自动生成补充证据清单。</p>
-                  <span class="feature-tag feature-green">📝 自动生成：补充证据清单</span>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>开庭前 3 天</strong>：提醒变更诉请或补充材料截止</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-blue">H</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">开庭结束等文书</h3>
-                  <p class="stage-desc">记录收到判决书日期、赔偿金额、医疗费、一审判决文件。</p>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>开庭后每 15 天</strong>：提醒联系书记员确认判决书/调解书进度</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="stage">
-                <div class="stage-marker bg-orange">I</div>
-                <div class="stage-card">
-                  <h3 class="stage-name" style="font-size: 15px;">是否上诉</h3>
-                  <p class="stage-desc">一审判决后决策：不上诉则判决生效；上诉则进入二审程序。</p>
-                  <div class="reminders">
-                    <div class="reminders-title">⏰ 飞书自动提醒</div>
-                    <ul>
-                      <li><strong>判决书 T+1</strong>：提醒确认是否上诉（上诉期 15 天）</li>
-                      <li><strong>判决书 T+3</strong>：⚠️ 极高优先级提醒，上诉期即将截止</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="feature-card">
+          <h3><span class="text-orange">💬</span> 飞书自然语言操作</h3>
+          <p>律师在飞书里直接说话就能查进度、推阶段、传文件、出文书，无需打开电脑后台。</p>
         </div>
-
-        <!-- 二审分支 -->
-        <div class="stage">
-          <div class="stage-marker bg-blue">5</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">二审程序（如上诉）</h3>
-              <span class="stage-badge badge-blue">可选分支</span>
-            </div>
-            <p class="stage-desc">二审诉讼准备 → 二审立案 → 二审受理后排期 → 二审开庭前准备 → 二审开庭 → 二审开庭结束等文书。流程与一审类似，系统自动生成对应阶段文书和提醒。</p>
-          </div>
-        </div>
-
-        <!-- 判决生效 -->
-        <div class="stage">
-          <div class="stage-marker bg-blue">6</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">判决生效</h3>
-              <span class="stage-badge badge-blue">执行起点</span>
-            </div>
-            <p class="stage-desc">记录判决生效日期，案件进入执行阶段。</p>
-          </div>
-        </div>
-
-        <!-- 执行 -->
-        <div class="stage">
-          <div class="stage-marker bg-blue">7</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">执行</h3>
-              <span class="stage-badge badge-blue">回款阶段</span>
-            </div>
-            <p class="stage-desc">记录执行结果、执行到位金额、执行文书。执行成功或失败均可进入结案确认。</p>
-            <div class="stage-fields">
-              <span class="field-tag">执行结果</span>
-              <span class="field-tag">执行到位金额</span>
-              <span class="field-tag">执行文书</span>
-            </div>
-            <div class="reminders">
-              <div class="reminders-title">⏰ 飞书自动提醒</div>
-              <ul>
-                <li><strong>执行每 15 天</strong>：提醒确认回款情况或联系执行法官</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- 结案 -->
-        <div class="stage">
-          <div class="stage-marker bg-green">8</div>
-          <div class="stage-card">
-            <div class="stage-header">
-              <h3 class="stage-name">结案确认</h3>
-              <span class="stage-badge badge-green">流程终点</span>
-            </div>
-            <p class="stage-desc">填写代理费，确认赔偿金额、医疗费、其他金额。结案后案件进入只读模式，不可再修改。</p>
-            <div class="stage-fields">
-              <span class="field-tag">代理费</span>
-              <span class="field-tag">赔偿金额</span>
-              <span class="field-tag">医疗费</span>
-              <span class="field-tag">其他金额</span>
-            </div>
-          </div>
+        <div class="feature-card">
+          <h3><span class="text-purple">📊</span> 案件进度可视</h3>
+          <p>每个案件走到哪一步、下一步该做什么、有哪些待办，一目了然，团队协作不再信息断层。</p>
         </div>
       </div>
     </section>
 
-    <!-- 飞书 + AI 深度集成 -->
+    <!-- 流程概览 -->
     <section class="section">
       <h2 class="section-title">
-        <span class="icon" style="background: var(--primary-light);">💬</span>
-        飞书 + AI 深度集成
+        <span class="icon bg-green">📋</span>
+        案件办理全流程概览
       </h2>
-      <p style="color: var(--gray-600); margin-top: -10px; margin-bottom: 16px;">律师无需打开 Web 后台，在飞书里用自然语言就能完成大部分案件操作，AI 全程以「律师助理」身份协助。</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3><span class="text-blue">🔎</span> 自然语言查询案件</h3>
-          <p>在飞书直接发问，AI 自动查询并回复案件进度。</p>
-          <ol class="feature-steps">
-            <li>「张三的案子到哪一步了？」</li>
-            <li>「李四的案件鉴定报告出来了吗？」</li>
-            <li>「我今天有什么待办？」</li>
-            <li>「本周有哪些开庭？」</li>
-          </ol>
+      <p class="lead">系统内置交通事故案件标准 SOP，律师只需按阶段推进，数据和文书自动串联。</p>
+      <div class="workflow">
+        <div class="workflow-step">
+          <span class="workflow-arrow">→</span>
+          <div class="step-num">1</div>
+          <h4>接案录入</h4>
+          <p>录入当事人、事故信息，自动建立案件档案并启动后续提醒。</p>
         </div>
-        <div class="feature-card">
-          <h3><span class="text-blue">🚀</span> 自然语言推进阶段</h3>
-          <p>用一句话更新案件阶段，AI 会发送确认卡片，律师确认后系统自动执行。</p>
-          <ol class="feature-steps">
-            <li>「张三的案件事故认定书已经拿到了，推进到鉴定阶段」</li>
-            <li>「李四的案子调解成功了，结案」</li>
-            <li>系统生成确认卡片，展示当前阶段 → 目标阶段</li>
-            <li>点击「确认推进」后自动流转并创建下一阶段提醒</li>
-          </ol>
+        <div class="workflow-step">
+          <span class="workflow-arrow">→</span>
+          <div class="step-num">2</div>
+          <h4>诉前准备</h4>
+          <p>等待认定书、完成伤残鉴定，系统智能识别材料并整理证据。</p>
         </div>
-        <div class="feature-card">
-          <h3><span class="text-blue">📎</span> 自然语言上传文件</h3>
-          <p>在飞书发送文件并附带说明，AI 自动识别文件类型和当事人，归档到对应案件。</p>
-          <ol class="feature-steps">
-            <li>发送文件并配文「这是张三的事故认定书」</li>
-            <li>AI 识别文件类型（事故认定书 / 鉴定报告 / 保单等）</li>
-            <li>自动匹配当事人「张三」的对应案件</li>
-            <li>上传至坚果云并按分类归档到案件详情</li>
-          </ol>
+        <div class="workflow-step">
+          <span class="workflow-arrow">→</span>
+          <div class="step-num">3</div>
+          <h4>分流决策</h4>
+          <p>根据案件情况选择调解或诉讼，系统自动给出方向建议。</p>
         </div>
-        <div class="feature-card">
-          <h3><span class="text-blue">📝</span> 自然语言生成文书</h3>
-          <p>在飞书一句话生成文书，AI 自动调用后台生成并返回审批卡片。</p>
-          <ol class="feature-steps">
-            <li>「帮我生成张三案件的民事起诉状」</li>
-            <li>系统自动聚合案件数据并生成文书</li>
-            <li>飞书返回文书列表卡片，状态为「待审批」</li>
-            <li>律师回复「全部确认」或单独驳回/重新生成</li>
-          </ol>
+        <div class="workflow-step">
+          <div class="step-num">4</div>
+          <h4>调解 / 诉讼</h4>
+          <p>调解路径快速结案；诉讼路径覆盖一审、二审全流程，文书随阶段自动生成。</p>
         </div>
-        <div class="feature-card">
-          <h3><span class="text-blue">📅</span> 开庭日程自动同步飞书日历</h3>
-          <p>记录开庭、调解、鉴定日期后，系统自动创建飞书日程并提前提醒。</p>
-          <ol class="feature-steps">
-            <li>在「受理后排期」「调解准备」等阶段填写日期</li>
-            <li>系统自动在律师飞书日历创建日程</li>
-            <li>自动设置提醒：开庭前 3 天、调解前 3 天、鉴定前 7 天 + 1 天</li>
-            <li>案件阶段变更时自动更新或删除关联日程</li>
-          </ol>
+        <div class="workflow-step">
+          <span class="workflow-arrow">→</span>
+          <div class="step-num">5</div>
+          <h4>判决生效</h4>
+          <p>记录生效时间，自动转入执行阶段并持续跟踪回款进度。</p>
         </div>
-        <div class="feature-card">
-          <h3><span class="text-blue">✅</span> 飞书卡片确认一切操作</h3>
-          <p>关键操作不直接执行，均通过飞书卡片让律师确认，避免误操作。</p>
-          <ol class="feature-steps">
-            <li>阶段推进确认卡片</li>
-            <li>文书审批 / 驳回 / 重新生成卡片</li>
-            <li>提醒「已处理」卡片</li>
-            <li>文件类型/案件选择卡片</li>
-          </ol>
+        <div class="workflow-step">
+          <span class="workflow-arrow">→</span>
+          <div class="step-num">6</div>
+          <h4>执行回款</h4>
+          <p>跟踪执行结果与到位金额，确保不遗漏任何一笔回款。</p>
+        </div>
+        <div class="workflow-step">
+          <div class="step-num">7</div>
+          <h4>结案归档</h4>
+          <p>确认代理费与各项金额，案件进入归档状态，数据留痕可查。</p>
         </div>
       </div>
     </section>
 
-    <!-- 特色功能 -->
+    <!-- 飞书 + AI -->
     <section class="section">
       <h2 class="section-title">
-        <span class="icon" style="background: var(--purple-light);">✨</span>
-        三大特色功能
+        <span class="icon bg-purple">🤖</span>
+        AI 律师助理，随时待命
+      </h2>
+      <p class="lead">律师不用记系统操作，像和同事说话一样使用系统。</p>
+      <ul class="highlight-list">
+        <li>「张三的案子到哪一步了？」—— 自动查询并汇报进度</li>
+        <li>「把李四的案子推进到鉴定阶段」—— 自动发送确认卡片，点击即生效</li>
+        <li>「帮我生成王五案件的起诉状」—— 自动聚合数据并生成文书</li>
+        <li>「这是赵六的认定书」—— 发送文件即自动识别、分类、归档</li>
+        <li>「本周有哪些开庭？」—— 自动汇总日程并同步飞书日历</li>
+        <li>所有关键操作均需律师确认后才执行，安全可控</li>
+      </ul>
+    </section>
+
+    <!-- 安全合规 -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="icon bg-orange">🛡️</span>
+        安全与合规
       </h2>
       <div class="features-grid">
         <div class="feature-card">
-          <h3><span class="text-purple">🔍</span> 事故认定书智能识别</h3>
-          <p>上传《道路交通事故认定书》和保单后，系统自动提取关键信息，无需手动录入。</p>
-          <ol class="feature-steps">
-            <li>OCR 提取 PDF 文本</li>
-            <li>AI 识别被告信息（姓名、身份证号、电话、地址）</li>
-            <li>识别保险公司名称，自动查询工商信息</li>
-            <li>识别事故类型（机动车 vs 非机动车/行人）</li>
-            <li>识别对方责任划分（全责/主责/同责/次责）</li>
-            <li>自动计算责任比例，同步创建对方当事人和保险公司档案</li>
-          </ol>
+          <h3><span class="text-orange">🔒</span> 权限隔离</h3>
+          <p>支持管理员、主办律师、律师助理、内勤等多角色，数据和操作权限严格隔离。</p>
         </div>
-
         <div class="feature-card">
-          <h3><span class="text-teal">🧮</span> 赔偿金额自动计算</h3>
-          <p>根据地区赔偿标准、伤残等级、责任比例、当事人信息，自动计算赔偿清单。</p>
-          <ol class="feature-steps">
-            <li>导入地区赔偿标准 Excel（含城镇收入、赔偿限额、责任比例等）</li>
-            <li>读取当事人年龄、行业、伤残等级</li>
-            <li>计算医疗费、营养费、住院伙食补助、护理费、交通费等</li>
-            <li>计算误工费（按实际收入或行业平均工资）</li>
-            <li>计算残疾/死亡赔偿金、被扶养人生活费、精神损害抚慰金</li>
-            <li>按责任比例折算最终赔偿金额，区分交强险/商业险/超出部分</li>
-          </ol>
+          <h3><span class="text-blue">✍️</span> 律师最终确认</h3>
+          <p>AI 仅作为辅助工具，所有文书、阶段推进、关键决策均需律师确认后方可生效。</p>
         </div>
-
         <div class="feature-card">
-          <h3><span class="text-green">📝</span> 起诉状自动生成</h3>
-          <p>进入「诉讼准备」阶段后，系统自动生成民事起诉状等诉讼文书，律师审批后即可使用。</p>
-          <ol class="feature-steps">
-            <li>聚合案件数据（当事人、律师、律所、事故信息）</li>
-            <li>从事故认定书提取责任划分，从鉴定阶段提取伤残等级</li>
-            <li>从赔偿计算结果提取诉讼请求金额和赔偿清单</li>
-            <li>使用 Word 模板渲染生成民事起诉状</li>
-            <li>同步生成所函、追加被告申请书、变更诉讼请求申请、授权委托书</li>
-            <li>文书进入「待审批」状态，律师确认或驳回后可重新生成</li>
-          </ol>
+          <h3><span class="text-green">📁</span> 文件安全存储</h3>
+          <p>案件附件统一存储于企业级云盘，分类清晰、版本可控、下载留痕。</p>
         </div>
       </div>
-
       <div class="notice">
-        <strong>💡 律师须知：</strong>系统自动生成和计算的结果仅作为工作辅助，最终法律文书和赔偿主张仍需律师审核确认。系统不会在对外沟通中向当事人提供具体赔偿金额预测或法律建议。
+        <strong>重要说明：</strong>系统提供的识别、计算和文书生成结果仅供律师工作参考，不构成法律建议或赔偿承诺。最终法律意见、诉讼请求和对外沟通内容，必须由执业律师审核确认。
       </div>
     </section>
 
-    <!-- 文件识别逻辑 -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="icon" style="background: var(--purple-light);">📄</span>
-        文件识别与上传逻辑
-      </h2>
-      <div class="timeline">
-        <div class="stage">
-          <div class="stage-marker bg-purple">1</div>
-          <div class="stage-card">
-            <h3 class="stage-name">飞书自然语言上传文件</h3>
-            <p class="stage-desc">律师在飞书中发送文件并附带一句话说明（如「这是张三的事故认定书」），AI 自动识别文件类型和当事人，无需手动选择案件。</p>
-          </div>
-        </div>
-        <div class="stage">
-          <div class="stage-marker bg-purple">2</div>
-          <div class="stage-card">
-            <h3 class="stage-name">AI 识别文件类型和当事人</h3>
-            <p class="stage-desc">系统根据文件名和附带文字，自动判断文件属于哪一类（事故认定书、鉴定报告、起诉状、判决书等），并提取当事人姓名。</p>
-            <div class="stage-fields">
-              <span class="field-tag">事故认定书</span>
-              <span class="field-tag">鉴定报告</span>
-              <span class="field-tag">保单</span>
-              <span class="field-tag">起诉状</span>
-              <span class="field-tag">判决书</span>
-              <span class="field-tag">调解书</span>
-              <span class="field-tag">证据清单</span>
-            </div>
-          </div>
-        </div>
-        <div class="stage">
-          <div class="stage-marker bg-purple">3</div>
-          <div class="stage-card">
-            <h3 class="stage-name">关联案件并上传坚果云</h3>
-            <p class="stage-desc">系统自动匹配到对应案件，上传文件到坚果云存储，并在案件详情页按分类归档。如果无法确定案件或文件类型，系统会发送卡片让律师选择。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 文书生成逻辑 -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="icon" style="background: var(--success-light);">📑</span>
-        文书自动生成逻辑
-      </h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3><span class="text-green">⚙️</span> 触发方式</h3>
-          <ol class="feature-steps">
-            <li><strong>系统自动触发：</strong>阶段推进到特定阶段后，Agent 收到 <code>document_generate</code> 指令</li>
-            <li><strong>律师主动请求：</strong>在飞书中说「帮我生成张三案件的起诉状」</li>
-            <li><strong>Web 端操作：</strong>在案件详情页「文书」Tab 手动触发</li>
-          </ol>
-        </div>
-        <div class="feature-card">
-          <h3><span class="text-green">📋</span> 阶段-文书映射</h3>
-          <ol class="feature-steps">
-            <li><strong>接案录入：</strong>授权委托书</li>
-            <li><strong>个人鉴定：</strong>鉴定申请书</li>
-            <li><strong>诉讼准备：</strong>民事起诉状、所函、追加被告申请书、变更诉讼请求申请、授权委托书</li>
-            <li><strong>立案：</strong>送达地址确认书、诉讼费用退付收款账户确认书、收件清单、证据提交清单</li>
-            <li><strong>开庭前准备：</strong>补充证据清单</li>
-          </ol>
-        </div>
-        <div class="feature-card">
-          <h3><span class="text-green">✅</span> 审批流程</h3>
-          <ol class="feature-steps">
-            <li>文书生成后状态为「待审批」</li>
-            <li>律师可逐份确认、驳回或全部确认</li>
-            <li>驳回时记录原因，可重新生成</li>
-            <li>审批通过后文书正式生效，可下载使用</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- 提醒规则说明 -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="icon" style="background: var(--warning-light);">⏰</span>
-        提醒规则说明
-      </h2>
-      <p style="color: var(--gray-600); margin-top: -10px; margin-bottom: 16px;">系统内置 13 类关键节点提醒，通过飞书推送给主办律师及助理。紧急提醒同时推送短信。</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3><span class="text-blue">🎯</span> 提醒触发方式</h3>
-          <ol class="feature-steps">
-            <li><strong>案件创建时：</strong>自动生成接案当日提醒</li>
-            <li><strong>阶段推进后：</strong>自动生成下一阶段的提醒</li>
-            <li><strong>手动创建：</strong>律师可针对个案添加一次性提醒</li>
-            <li><strong>循环提醒：</strong>立案、受理、开庭后、执行阶段按固定周期重复提醒</li>
-          </ol>
-        </div>
-        <div class="feature-card">
-          <h3><span class="text-red">🚨</span> 优先级规则</h3>
-          <ol class="feature-steps">
-            <li><strong>普通：</strong>一般跟进提醒（飞书消息）</li>
-            <li><strong>高：</strong>诉讼材料截止、开庭前准备等（飞书消息）</li>
-            <li><strong>紧急/极高：</strong>上诉期截止等（飞书 + 短信）</li>
-            <li>同一规则在同一案件上最多 3 条未处理提醒，避免重复轰炸</li>
-          </ol>
-        </div>
-        <div class="feature-card">
-          <h3><span class="text-green">✔️</span> 停止提醒方式</h3>
-          <ol class="feature-steps">
-            <li>点击飞书消息卡片「已处理」</li>
-            <li>回复「已处理」「完成」「OK」等关键词</li>
-            <li>在 Web 端提醒中心手动关闭</li>
-            <li>阶段推进或事项完成后，对应循环提醒停止</li>
-          </ol>
-        </div>
-      </div>
-    </section>
+    <footer>
+      交通事故案件智能办理系统 · 让律师专注于案件本身
+    </footer>
   </div>
-
-  <script>
-    function toggleNav() {
-      const btn = document.querySelector('.nav-menu-btn');
-      const drawer = document.getElementById('navDrawer');
-      btn.classList.toggle('open');
-      drawer.classList.toggle('open');
-    }
-
-    document.querySelectorAll('.nav-drawer .nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        toggleNav();
-      });
-    });
-  </script>
 </body>
 </html>
