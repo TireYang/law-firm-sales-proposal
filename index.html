@@ -84,6 +84,14 @@
     .top-nav-links {
       display: flex;
       gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .top-nav-links::-webkit-scrollbar {
+      display: none;
     }
 
     .top-nav-link {
@@ -879,9 +887,9 @@
     <div class="top-nav-content">
       <a href="index.html" class="top-nav-logo">律所数字化</a>
       <div class="top-nav-links">
+        <a href="sales-proposal.html" class="top-nav-link">销售方案</a>
         <a href="traffic-accident-workflow.html" class="top-nav-link">办案流程</a>
         <a href="architecture-technical.html" class="top-nav-link">技术架构</a>
-        <a href="index.html" class="top-nav-link active">AI 架构</a>
       </div>
     </div>
   </nav>

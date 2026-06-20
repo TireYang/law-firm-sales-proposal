@@ -32,6 +32,74 @@
       color: var(--dark);
       line-height: 1.7;
       background: var(--white);
+      padding-top: 64px;
+    }
+
+    /* Top navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 12px 16px;
+      padding-top: calc(12px + env(safe-area-inset-top));
+    }
+
+    .top-nav-content {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-nav-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gray-800);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .top-nav-links {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .top-nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .top-nav-link {
+      font-size: 13px;
+      color: var(--gray-600);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .top-nav-link:hover,
+    .top-nav-link:active {
+      background: var(--primary-light, #dbeafe);
+      color: var(--primary, #2563eb);
+    }
+
+    .top-nav-link.active {
+      background: var(--primary, #2563eb);
+      color: white;
     }
 
     .container {
@@ -44,7 +112,8 @@
     .hero {
       background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
       color: var(--white);
-      padding: 80px 0 100px;
+      padding: 144px 0 100px;
+      margin-top: -64px;
       position: relative;
       overflow: hidden;
     }
@@ -593,6 +662,18 @@
   </style>
 </head>
 <body>
+  <!-- Top navigation -->
+  <nav class="top-nav">
+    <div class="top-nav-content">
+      <a href="index.html" class="top-nav-logo">律所数字化</a>
+      <div class="top-nav-links">
+        <a href="sales-proposal.html" class="top-nav-link active">销售方案</a>
+        <a href="traffic-accident-workflow.html" class="top-nav-link">办案流程</a>
+        <a href="architecture-technical.html" class="top-nav-link">技术架构</a>
+      </div>
+    </div>
+  </nav>
+
   <!-- Hero -->
   <section class="hero">
     <div class="container">
